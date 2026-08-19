@@ -144,6 +144,8 @@ function applyEffects(effects){
 function hasRequirement(choice){
   if(choice.requiresClue && !state.clues.includes(choice.requiresClue)) return false;
   if(choice.requiresItem && !state.inventory.includes(choice.requiresItem)) return false;
+  if(choice.requiresProfession && state.character?.profession!==choice.requiresProfession) return false;
+  if(choice.requiresMotivation && state.character?.motivation!==choice.requiresMotivation) return false;
   return true;
 }
 function rollSkill(skill){
@@ -170,10 +172,11 @@ function render(){
   sc.choices.filter(hasRequirement).forEach(ch=>{
     const b=document.createElement('button');
     b.className='choice-btn';
+    const exclusive=ch.requiresProfession?` · ${ch.requiresProfession}`:(ch.requiresMotivation?` · ${ch.requiresMotivation}`:'');
     if(ch.skill){
       const chance=state.character?.skills?.[ch.skill.name] ?? 40;
-      b.textContent=`${ch.text} · ${ch.skill.name} ${chance}%`;
-    }else b.textContent=ch.text;
+      b.textContent=`${ch.text} · ${ch.skill.name} ${chance}%${exclusive}`;
+    }else b.textContent=`${ch.text}${exclusive}`;
     b.onclick=()=>{
       currentChoiceTime=ch.time||0;
       if(ch.action==='home'){save();showScreen('home');return;}
