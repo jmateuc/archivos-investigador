@@ -1,4 +1,4 @@
-const SAVE_KEY='investigador-save-v2';
+const SAVE_KEY='investigador-save-v4';
 let story=null;
 let state=null;
 let creator={profession:null,talents:[],motivation:null};
@@ -127,8 +127,13 @@ function createCharacterAndStart(){
 function enterScene(id, addTime=0){
   state.scene=id;
   state.timeMinutes+=addTime||0;
+  state.visited=state.visited||[];
   const sc=story.scenes[id];
-  applyEffects(sc.onEnter);
+  const firstVisit=!state.visited.includes(id);
+  if(firstVisit){
+    applyEffects(sc.onEnter);
+    state.visited.push(id);
+  }
   if(!state.log.includes(sc.title)) state.log.unshift(sc.title);
   save();
   render();
@@ -146,15 +151,16 @@ function hasRequirement(choice){
   if(choice.requiresItem && !state.inventory.includes(choice.requiresItem)) return false;
   if(choice.requiresProfession && state.character?.profession!==choice.requiresProfession) return false;
   if(choice.requiresMotivation && state.character?.motivation!==choice.requiresMotivation) return false;
+  if(choice.requiresFlag && !state.flags?.[choice.requiresFlag]) return false;
   return true;
 }
 function rollSkill(skill){
   const chance=state.character?.skills?.[skill.name] ?? 40;
   const roll=Math.floor(Math.random()*100)+1;
   const success=roll<=chance;
-  $('#rollResult').textContent=`${skill.name}: ${roll}/${chance} → ${success?'ÉXITO':'FALLO'}`;
+  $('#rollResult').innerHTML=`<strong>${success?'ÉXITO':'FALLO'}</strong><br>${skill.name}: ${roll} / ${chance}`;
   $('#rollResult').classList.remove('hidden');
-  setTimeout(()=>enterScene(success?skill.success:skill.fail,0),700);
+  setTimeout(()=>enterScene(success?skill.success:skill.fail,0),1800);
 }
 
 function render(){
@@ -205,6 +211,8 @@ function renderJournal(){
 function continueGame(){
   state=loadSave();
   if(!state || !state.character)return startCreator();
+  state.visited=state.visited||[];
+  state.flags=state.flags||{};
   showScreen('game');render();
 }
 
