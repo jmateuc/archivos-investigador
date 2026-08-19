@@ -3,7 +3,7 @@
     "id": "la-senal-kingsport",
     "title": "La señal de Kingsport",
     "subtitle": "Massachusetts, octubre de 1927",
-    "version": 1
+    "version": 2
   },
   "initialState": {
     "scene": "hotel",
@@ -39,6 +39,15 @@
           "text": "Subir a la habitación 12, la de Ward",
           "to": "habitacion12",
           "time": 5
+        },
+        {
+          "text": "Observar el vestíbulo antes de moverse",
+          "skill": {
+            "name": "Descubrir",
+            "success": "hotel_descubrir",
+            "fail": "hotel_descubrir_fallo"
+          },
+          "time": 3
         },
         {
           "text": "Examinar la mesa del profesor",
@@ -77,6 +86,21 @@
         "Cuando menciona la radio, sus ojos se desvían instintivamente hacia el libro de huéspedes."
       ],
       "choices": [
+        {
+          "text": "Estudiar su reacción antes de seguir preguntando",
+          "skill": {
+            "name": "Psicología",
+            "success": "recepcion_psico",
+            "fail": "recepcion_psico_fallo"
+          },
+          "time": 3
+        },
+        {
+          "text": "Presentarse como periodista y pedir consultar el registro",
+          "to": "libro",
+          "time": 2,
+          "requiresProfession": "Periodista"
+        },
         {
           "text": "Presionarle para que enseñe el libro de huéspedes",
           "skill": {
@@ -171,6 +195,12 @@
       },
       "choices": [
         {
+          "text": "Reconstruir el circuito con criterio profesional",
+          "to": "emision_ingeniero",
+          "time": 5,
+          "requiresProfession": "Ingeniero"
+        },
+        {
           "text": "Encender el receptor",
           "skill": {
             "name": "Electricidad",
@@ -257,6 +287,12 @@
       },
       "choices": [
         {
+          "text": "Asomarse y seguir la huella por la cornisa",
+          "to": "ventana_curiosidad",
+          "time": 2,
+          "requiresMotivation": "La curiosidad"
+        },
+        {
           "text": "Volver al escritorio",
           "to": "habitacion12",
           "time": 2
@@ -270,6 +306,12 @@
         "Nadie responde. La puerta está cerrada. Por debajo llega olor a sal y algo más: pescado dejado demasiados días al sol."
       ],
       "choices": [
+        {
+          "text": "Abrir la cerradura con las herramientas de oficio",
+          "to": "habitacion9_dentro",
+          "time": 4,
+          "requiresProfession": "Detective privado"
+        },
         {
           "text": "Forzar discretamente la cerradura",
           "skill": {
@@ -290,7 +332,7 @@
       "kicker": "PASILLO",
       "title": "Pasos en la escalera",
       "text": [
-        "La ganzúa improvisada se parte. Al fondo oye subir al recepcionista. Será mejor marcharse."
+        "La ganzúa improvisada se parte y le abre un corte en un dedo. Al fondo oye subir al recepcionista: no tendrá una segunda oportunidad."
       ],
       "choices": [
         {
@@ -298,7 +340,14 @@
           "to": "casa",
           "time": 35
         }
-      ]
+      ],
+      "onEnter": {
+        "health": -1,
+        "setFlag": [
+          "cerraduraFallida",
+          true
+        ]
+      }
     },
     "habitacion9_dentro": {
       "kicker": "HABITACIÓN 9",
@@ -365,6 +414,16 @@
         "«Llegas justo a tiempo. Esta noche responderán». El zumbido aumenta y las paredes parecen alejarse."
       ],
       "choices": [
+        {
+          "text": "Ignorar a Marsh y liberar primero a Ward",
+          "skill": {
+            "name": "Descubrir",
+            "success": "final_deber",
+            "fail": "final_malo"
+          },
+          "time": 2,
+          "requiresMotivation": "El deber"
+        },
         {
           "text": "Lanzarse sobre Marsh",
           "skill": {
@@ -468,6 +527,166 @@
           true
         ],
         "sanity": -10
+      },
+      "choices": [
+        {
+          "text": "Cerrar el expediente",
+          "action": "home"
+        }
+      ]
+    },
+    "hotel_descubrir": {
+      "kicker": "VESTÍBULO",
+      "title": "Huellas donde no debería haberlas",
+      "text": [
+        "Junto a la escalera descubre pequeñas gotas de agua salada. Forman un rastro irregular que sube al segundo piso, pero no hay lluvia desde hace tres días.",
+        "Entre dos tablas del suelo encuentra además una escama gris, demasiado grande para pertenecer a ningún pez que conozca."
+      ],
+      "onEnter": {
+        "addClue": "Rastro de agua salada hacia el segundo piso"
+      },
+      "choices": [
+        {
+          "text": "Seguir el rastro hasta la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        },
+        {
+          "text": "Preguntar al recepcionista por el agua",
+          "to": "recepcion",
+          "time": 2
+        }
+      ]
+    },
+    "hotel_descubrir_fallo": {
+      "kicker": "VESTÍBULO",
+      "title": "Nada fuera de lugar",
+      "text": [
+        "Repasa el vestíbulo sin encontrar nada concluyente. Mientras lo hace, el recepcionista observa cada uno de sus movimientos con creciente incomodidad."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "recepcionistaAlerta",
+          true
+        ]
+      },
+      "choices": [
+        {
+          "text": "Preguntar al recepcionista por Ward",
+          "to": "recepcion",
+          "time": 2
+        },
+        {
+          "text": "Subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ]
+    },
+    "recepcion_psico": {
+      "kicker": "RECEPCIÓN",
+      "title": "Una mentira ensayada",
+      "text": [
+        "No es la mención de Ward lo que le inquieta, sino la palabra «radio». El recepcionista ya sabía que iba a preguntarle por ella.",
+        "También mira dos veces hacia la llave de la habitación 9 antes de asegurar que Ward salió solo."
+      ],
+      "onEnter": {
+        "addClue": "El recepcionista teme algo relacionado con la habitación 9"
+      },
+      "choices": [
+        {
+          "text": "Exigirle el libro de huéspedes aprovechando su nerviosismo",
+          "to": "libro",
+          "time": 2
+        },
+        {
+          "text": "Subir a la habitación 12 sin mostrar lo que ha descubierto",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ]
+    },
+    "recepcion_psico_fallo": {
+      "kicker": "RECEPCIÓN",
+      "title": "Una lectura equivocada",
+      "text": [
+        "Interpreta su silencio como miedo e insiste demasiado. El recepcionista deja de fingir amabilidad y coloca discretamente una mano bajo el mostrador.",
+        "Ha perdido la oportunidad de sorprenderle."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "recepcionistaHostil",
+          true
+        ]
+      },
+      "choices": [
+        {
+          "text": "Intentar aun así que enseñe el libro",
+          "skill": {
+            "name": "Persuasión",
+            "success": "libro",
+            "fail": "recepcion_fallo"
+          },
+          "time": 5
+        },
+        {
+          "text": "Retirarse y subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ]
+    },
+    "emision_ingeniero": {
+      "kicker": "1210 kHz",
+      "title": "Un circuito hecho para escuchar otra cosa",
+      "text": [
+        "La modificación de Ward no amplifica una señal normal: elimina deliberadamente varias bandas y fuerza la recepción en 1210 kHz. Sabe exactamente qué puente cerrar sin arriesgar las válvulas.",
+        "La voz de Ward emerge de la estática: «La casa del acantilado. No miréis hacia abajo»."
+      ],
+      "onEnter": {
+        "addClue": "Ward dejó un mensaje: «La casa del acantilado»",
+        "sanity": -1
+      },
+      "choices": [
+        {
+          "text": "Examinar el mapa",
+          "to": "mapa",
+          "time": 3
+        }
+      ]
+    },
+    "ventana_curiosidad": {
+      "kicker": "CORNISA",
+      "title": "Algo descendió por la pared",
+      "text": [
+        "Se inclina más de lo prudente. Las marcas continúan verticalmente por la fachada hasta perderse dos pisos más abajo. No son huellas de alguien que haya trepado: la orientación de los dedos indica que descendió de cabeza.",
+        "Durante un instante cree distinguir una silueta pegada al muro del callejón. Cuando parpadea, ya no está."
+      ],
+      "onEnter": {
+        "addClue": "Algo descendió de cabeza por la fachada del hotel",
+        "sanity": -3
+      },
+      "choices": [
+        {
+          "text": "Retroceder de la ventana",
+          "to": "habitacion12",
+          "time": 2
+        }
+      ]
+    },
+    "final_deber": {
+      "kicker": "FINAL",
+      "title": "Primero, sacar a Ward",
+      "text": [
+        "En vez de mirar a Marsh, localiza el cierre de las correas y libera a Ward. El profesor se lanza de inmediato sobre el panel y arranca la bobina central.",
+        "El transmisor muere antes de completar la secuencia. Marsh escapa por una puerta lateral, pero Ward sale vivo de la casa. Esta vez, cumplir con el deber ha sido suficiente."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "completed",
+          true
+        ],
+        "sanity": -1
       },
       "choices": [
         {
