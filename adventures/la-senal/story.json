@@ -3,103 +3,104 @@
     "id": "la-senal-kingsport",
     "title": "La señal de Kingsport",
     "subtitle": "Massachusetts, octubre de 1927",
-    "version": 4,
-    "estimatedMinutes": "45–75"
+    "version": 5,
+    "estimatedMinutes": "90–150",
+    "structure": "3 actos"
   },
   "initialState": {
     "scene": "hotel",
     "sanity": 60,
     "health": 10,
-    "timeMinutes": 1240,
+    "timeMinutes": 1235,
     "inventory": [
       "Carta del profesor Ward",
       "Linterna"
     ],
     "clues": [],
     "flags": {},
+    "visited": [],
     "log": [
-      "Llegada a Kingsport."
+      "Llegas a Kingsport para encontrarte con el profesor Elias Ward."
     ],
-    "character": null,
-    "visited": []
+    "character": null
   },
   "scenes": {
     "hotel": {
-      "kicker": "HOTEL NORTH STAR · 20:40",
-      "title": "Una habitación vacía",
+      "kicker": "HOTEL NORTH STAR · 20:35",
+      "title": "Una silla vacía",
       "text": [
-        "El profesor Elias Ward debía esperarle en el vestíbulo. Su sillón está vacío y sobre la mesa queda una taza de café completamente fría.",
-        "El recepcionista evita mirarle. Desde el piso superior llega, durante apenas un segundo, un zumbido grave semejante al de una radio mal sintonizada.",
-        "Ward le escribió hace tres días: «Si la señal vuelve a aparecer, ven a Kingsport. No confíes en nadie que diga haberla oído en el mar»."
+        "Elias Ward debía esperarte en el vestíbulo. Su silla está vacía y la taza de café frente a ella está completamente fría.",
+        "Hace tres días recibiste una carta suya: «Si la señal vuelve a aparecer, ven a Kingsport. No confíes en nadie que diga que procede del mar».",
+        "El recepcionista finge ordenar unas llaves. Desde el piso superior llega un zumbido grave, apenas un segundo, como una radio mal sintonizada."
       ],
       "choices": [
         {
-          "text": "Observar el vestíbulo antes de moverse",
+          "text": "Observar el vestíbulo con atención",
           "skill": {
             "name": "Descubrir",
-            "success": "hotel_descubrir",
-            "fail": "hotel_descubrir_fallo"
+            "success": "hotel_observar_exito",
+            "fail": "hotel_observar_fallo"
           },
           "time": 3
         },
         {
           "text": "Preguntar al recepcionista por Ward",
           "to": "recepcion",
-          "time": 5
+          "time": 4
         },
         {
-          "text": "Examinar la mesa del profesor",
-          "to": "mesa",
+          "text": "Examinar la mesa de Ward",
+          "to": "mesa_ward",
           "time": 3
         },
         {
-          "text": "Subir a la habitación 12, la de Ward",
+          "text": "Subir directamente a la habitación 12",
           "to": "habitacion12",
-          "time": 5
+          "time": 4
         }
       ]
     },
-    "hotel_descubrir": {
+    "hotel_observar_exito": {
       "kicker": "VESTÍBULO",
-      "title": "Algo fuera de lugar",
+      "title": "Sal donde no debería haberla",
       "text": [
-        "La taza de Ward tiene una fina costra de sal en el borde. No hay salero sobre la mesa.",
-        "En el suelo, junto a una pata del sillón, encuentra un pequeño fragmento de cobre curvado. Parece parte de una bobina eléctrica."
+        "En el borde de la taza descubres una costra de sal seca. No hay salero sobre la mesa.",
+        "Junto a una pata de la silla encuentras un fragmento de cobre curvado y una fibra negra, áspera, demasiado gruesa para ser cabello."
       ],
       "choices": [
         {
-          "text": "Guardar el fragmento y examinar la mesa",
-          "to": "mesa",
+          "text": "Guardar el cobre y la fibra",
+          "to": "mesa_ward",
           "time": 2
         },
         {
-          "text": "Preguntar al recepcionista por la sal y el cobre",
+          "text": "Preguntar al recepcionista por lo que acabas de encontrar",
           "to": "recepcion",
           "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Sal seca y fragmento de cobre junto al asiento de Ward",
+        "addClue": "Sal seca, cobre y una fibra negra junto al asiento de Ward",
         "addItem": "Fragmento de cobre"
       }
     },
-    "hotel_descubrir_fallo": {
+    "hotel_observar_fallo": {
       "kicker": "VESTÍBULO",
-      "title": "Demasiadas miradas",
+      "title": "Una mirada demasiado larga",
       "text": [
-        "No encuentra nada concluyente. Cuando se incorpora, descubre al recepcionista observándole con atención desde detrás del mostrador.",
-        "Ha perdido parte del elemento sorpresa."
+        "No encuentras nada concluyente. Cuando te incorporas, el recepcionista ya no finge ordenar las llaves.",
+        "Te observa directamente. Has dejado claro que no eres un huésped cualquiera."
       ],
       "choices": [
         {
-          "text": "Hablar con el recepcionista",
+          "text": "Hablar con él antes de que se cierre más",
           "to": "recepcion",
           "time": 2
         },
         {
           "text": "Subir a la habitación de Ward",
           "to": "habitacion12",
-          "time": 4
+          "time": 3
         }
       ],
       "onEnter": {
@@ -109,97 +110,97 @@
         ]
       }
     },
-    "mesa": {
+    "mesa_ward": {
       "kicker": "VESTÍBULO",
-      "title": "Ceniza y números",
+      "title": "Ceniza y frecuencias",
       "text": [
-        "Bajo el cenicero encuentra un papel doblado. Hay tres frecuencias escritas a lápiz: 740, 910 y 1210 kHz.",
-        "Debajo aparece una frase incompleta: «No procede del mar. Procede de…»."
+        "Bajo el cenicero encuentras un papel doblado con tres frecuencias: 740, 910 y 1210 kHz.",
+        "Debajo, Ward escribió: «No transmite. Responde». La frase siguiente quedó a medias: «La primera vez fue en…»"
       ],
       "choices": [
         {
-          "text": "Guardar el papel y preguntar al recepcionista",
+          "text": "Guardar la nota y hablar con el recepcionista",
           "to": "recepcion",
           "time": 2
         },
         {
           "text": "Subir a la habitación 12",
           "to": "habitacion12",
-          "time": 4
+          "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "Frecuencias 740, 910 y 1210 kHz"
+        "addClue": "Ward anotó las frecuencias 740, 910 y 1210 kHz"
       }
     },
     "recepcion": {
       "kicker": "RECEPCIÓN",
       "title": "El hombre de los tirantes",
       "text": [
-        "El recepcionista se seca las manos en el chaleco aunque no están mojadas. Dice que Ward salió antes del anochecer.",
-        "Cuando menciona la radio, sus ojos se desvían instintivamente hacia el libro de huéspedes."
+        "El recepcionista se seca las manos en el chaleco aunque están secas. Dice que Ward salió antes del anochecer y que no ha vuelto.",
+        "Cuando mencionas una radio, sus ojos se desvían hacia el libro de huéspedes y después hacia la escalera."
       ],
       "choices": [
         {
-          "text": "Estudiar su reacción antes de seguir preguntando",
+          "text": "Estudiar su reacción",
           "skill": {
             "name": "Psicología",
-            "success": "recepcion_psico",
+            "success": "recepcion_psico_exito",
             "fail": "recepcion_psico_fallo"
           },
           "time": 3
         },
         {
-          "text": "Presentarse como periodista y pedir consultar el registro",
-          "to": "libro",
+          "text": "Presentarte como periodista y pedir el registro",
+          "to": "libro_huespedes",
           "time": 2,
           "requiresProfession": "Periodista"
         },
         {
-          "text": "Presionarle para que enseñe el libro de huéspedes",
+          "text": "Convencerlo para que te enseñe el registro",
           "skill": {
             "name": "Persuasión",
-            "success": "libro",
-            "fail": "recepcion_fallo"
+            "success": "libro_huespedes",
+            "fail": "recepcion_persuasion_fallo"
           },
           "time": 5
         },
         {
-          "text": "No insistir y subir a la habitación 12",
+          "text": "Dejarlo y subir a la habitación 12",
           "to": "habitacion12",
           "time": 3
         }
       ]
     },
-    "recepcion_psico": {
+    "recepcion_psico_exito": {
       "kicker": "RECEPCIÓN",
-      "title": "El miedo tiene dirección",
+      "title": "Miedo, no hostilidad",
       "text": [
-        "No está mintiendo sobre la hora. Miente sobre el motivo.",
-        "Cuando pregunta si Ward iba solo, el hombre mira involuntariamente hacia la escalera y luego hacia la puerta. Teme más a alguien alojado aquí que a usted."
+        "No te teme a ti. Teme a alguien que sigue dentro del hotel.",
+        "Cada vez que preguntas si Ward iba acompañado, mira involuntariamente hacia el rellano del segundo piso."
       ],
       "choices": [
         {
-          "text": "Preguntar directamente por el huésped que le asusta",
-          "to": "libro",
+          "text": "Preguntar quién ocupa las habitaciones del segundo piso",
+          "to": "libro_huespedes",
           "time": 3
         },
         {
-          "text": "Subir a la habitación de Ward",
+          "text": "Subir y averiguarlo por tu cuenta",
           "to": "habitacion12",
           "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "El recepcionista teme a otro huésped del hotel"
+        "addClue": "El recepcionista teme a otro huésped del segundo piso"
       }
     },
     "recepcion_psico_fallo": {
       "kicker": "RECEPCIÓN",
-      "title": "Una interpretación equivocada",
+      "title": "Una lectura equivocada",
       "text": [
-        "Confunde nerviosismo con hostilidad y aprieta demasiado. El hombre se cierra en banda.",
-        "A partir de ahora será más difícil sacarle información."
+        "Confundes nerviosismo con desprecio y aprietas demasiado. El hombre cambia de expresión.",
+        "«Si no va a registrarse, deje trabajar». Ya no piensa ayudarte."
       ],
       "choices": [
         {
@@ -215,12 +216,12 @@
         ]
       }
     },
-    "recepcion_fallo": {
+    "recepcion_persuasion_fallo": {
       "kicker": "RECEPCIÓN",
-      "title": "Una sonrisa cerrada",
+      "title": "El libro desaparece",
       "text": [
-        "El hombre se endurece. «Los asuntos de nuestros huéspedes son privados».",
-        "Cuando intenta insistir, cierra el libro y lo guarda bajo el mostrador."
+        "Tu insistencia solo consigue que cierre el registro y lo guarde bajo el mostrador.",
+        "«Los asuntos de mis huéspedes son privados». Desde este momento medirá cada palabra contigo."
       ],
       "choices": [
         {
@@ -236,49 +237,74 @@
         ]
       }
     },
-    "libro": {
+    "libro_huespedes": {
       "kicker": "LIBRO DE HUÉSPEDES",
-      "title": "Un nombre repetido",
+      "title": "Un apellido que vuelve",
       "text": [
-        "Ward figura en la habitación 12. Debajo aparece un tal Silas Marsh, sin dirección, habitación 9.",
-        "El mismo apellido se repite seis veces durante los últimos dos meses. Todos los registros anteriores terminan con una anotación idéntica: «Salida antes del amanecer»."
+        "Ward ocupa la habitación 12. En la 9 figura Silas Marsh, sin dirección.",
+        "El apellido Marsh aparece otras seis veces en los últimos dos meses. Todos los registros terminan con la misma anotación: «Salida antes del amanecer».",
+        "En una página más antigua, escrita con tinta distinta, ves una reserva de 1907 a nombre de S. Marsh."
       ],
       "choices": [
         {
-          "text": "Subir a la habitación 12",
-          "to": "habitacion12",
+          "text": "Preguntar por la reserva de 1907",
+          "to": "recepcion_1907",
           "time": 3
         },
         {
-          "text": "Investigar ahora la habitación 9",
+          "text": "Investigar la habitación 9",
           "to": "habitacion9",
           "time": 4
+        },
+        {
+          "text": "Subir primero a la habitación de Ward",
+          "to": "habitacion12",
+          "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "Silas Marsh, habitación 9"
+        "addClue": "Silas Marsh aparece en el hotel en 1907 y 1927"
+      }
+    },
+    "recepcion_1907": {
+      "kicker": "RECEPCIÓN",
+      "title": "Un libro demasiado viejo",
+      "text": [
+        "El recepcionista jura que ese registro pertenecía al anterior propietario y que jamás se había fijado en el nombre.",
+        "Luego recuerda algo: Ward preguntó exactamente lo mismo ayer y salió del hotel rumbo al archivo del Kingsport Chronicle."
+      ],
+      "choices": [
+        {
+          "text": "Anotar la referencia al Chronicle y subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward investigó en el Kingsport Chronicle antes de desaparecer"
       }
     },
     "habitacion12": {
       "kicker": "SEGUNDO PISO",
-      "title": "La habitación del profesor",
+      "title": "La habitación de Ward",
       "text": [
-        "La puerta no está cerrada. La cama sigue hecha.",
-        "Sobre el escritorio hay un receptor de radio desmontado, un mapa costero y una libreta abierta. Una mancha oscura cruza el suelo hasta la ventana. No parece sangre."
+        "La puerta está entornada. La cama sigue hecha.",
+        "Sobre el escritorio hay un receptor de radio desmontado, una libreta llena de anotaciones y un mapa de Kingsport.",
+        "Una mancha oscura cruza el suelo hasta la ventana. No parece sangre."
       ],
       "choices": [
         {
           "text": "Examinar el receptor",
           "to": "radio",
-          "time": 6
+          "time": 5
         },
         {
-          "text": "Revisar la libreta de Ward",
+          "text": "Revisar la libreta",
           "to": "libreta",
           "time": 5
         },
         {
-          "text": "Examinar el mapa",
+          "text": "Estudiar el mapa",
           "to": "mapa",
           "time": 4
         },
@@ -289,153 +315,89 @@
         }
       ]
     },
-    "libreta": {
-      "kicker": "HABITACIÓN 12",
-      "title": "Notas al margen",
-      "text": [
-        "Las últimas páginas contienen horarios, nombres y dibujos de ondas. Ward comparó la señal con registros del periódico local de 1907 y con el cuaderno de servicio del faro.",
-        "Una frase está rodeada tres veces: «El 1210 no transmite. Responde»."
-      ],
-      "choices": [
-        {
-          "text": "Relacionar las notas con conocimientos académicos",
-          "skill": {
-            "name": "Biblioteca",
-            "success": "libreta_biblio",
-            "fail": "libreta_fallo"
-          },
-          "time": 6
-        },
-        {
-          "text": "Anotar las dos posibles líneas de investigación",
-          "to": "habitacion12",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "addClue": "Ward investigaba el periódico local y los registros del faro"
-      }
-    },
-    "libreta_biblio": {
-      "kicker": "HABITACIÓN 12",
-      "title": "El patrón de veinte años",
-      "text": [
-        "Recuerda haber leído sobre extrañas desapariciones en la costa de Massachusetts en 1887 y 1907.",
-        "Ward ha subrayado también 1927. No parece una coincidencia: la señal podría seguir un ciclo de veinte años."
-      ],
-      "choices": [
-        {
-          "text": "Ir al archivo del periódico",
-          "to": "calle_eleccion",
-          "time": 3
-        },
-        {
-          "text": "Seguir examinando la habitación",
-          "to": "habitacion12",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "addClue": "La señal parece repetir un ciclo cada veinte años"
-      }
-    },
-    "libreta_fallo": {
-      "kicker": "HABITACIÓN 12",
-      "title": "Demasiadas referencias",
-      "text": [
-        "Las notas saltan entre física, folclore y astronomía sin una estructura clara.",
-        "Solo consigue confirmar dos lugares: la redacción del Kingsport Chronicle y el faro."
-      ],
-      "choices": [
-        {
-          "text": "Continuar investigando la habitación",
-          "to": "habitacion12",
-          "time": 2
-        }
-      ]
-    },
     "radio": {
       "kicker": "HABITACIÓN 12",
       "title": "El receptor modificado",
       "text": [
-        "Ward había sustituido varias válvulas y añadido una bobina artesanal. En la carcasa interior hay grabado el número 1210."
+        "Ward sustituyó varias válvulas y añadió una bobina artesanal. El circuito desafía la lógica de un receptor normal.",
+        "En la carcasa interior grabó el número 1210."
       ],
       "choices": [
         {
           "text": "Reconstruir el circuito con criterio profesional",
-          "to": "emision_ingeniero",
-          "time": 5,
+          "to": "radio_ingeniero",
+          "time": 4,
           "requiresProfession": "Ingeniero"
         },
         {
-          "text": "Encender el receptor",
+          "text": "Intentar ponerlo en marcha",
           "skill": {
             "name": "Electricidad",
-            "success": "emision",
+            "success": "radio_exito",
             "fail": "radio_fallo"
           },
-          "time": 8
+          "time": 7
         },
         {
-          "text": "Volver al escritorio",
-          "to": "habitacion12",
+          "text": "Dejarlo y revisar la libreta",
+          "to": "libreta",
           "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Ward modificó la radio para recibir 1210 kHz"
+        "addClue": "Ward modificó la radio para trabajar con 1210 kHz"
       }
     },
-    "emision_ingeniero": {
+    "radio_ingeniero": {
       "kicker": "1210 kHz",
-      "title": "Una máquina que no debería funcionar",
+      "title": "Una resonancia imposible",
       "text": [
-        "El circuito está mal diseñado según cualquier manual, y sin embargo comprende qué intentaba hacer Ward: no amplificar una señal, sino crear una resonancia.",
-        "Recoloca dos conexiones. El receptor cobra vida sin estar conectado a la red."
+        "Comprendes que el aparato no pretende amplificar una emisión. Intenta sincronizarse con algo.",
+        "Recolocas dos conexiones y el receptor se enciende sin estar conectado a la red."
       ],
       "choices": [
         {
-          "text": "Escuchar la transmisión",
-          "to": "emision",
+          "text": "Escuchar",
+          "to": "radio_exito",
           "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "El receptor usa resonancia, no una transmisión convencional"
+        "addClue": "El receptor de Ward funciona por resonancia, no como una radio normal"
       }
     },
-    "emision": {
+    "radio_exito": {
       "kicker": "1210 kHz",
       "title": "La voz bajo el ruido",
       "text": [
-        "Primero solo hay estática. Después surge una secuencia de golpes: tres cortos y uno largo.",
-        "Finalmente oye la voz de Ward: «La casa del acantilado. No miréis hacia abajo». La grabación se repite exactamente igual.",
-        "En la segunda repetición, detrás de la voz aparece otra respiración."
+        "La estática se organiza en tres golpes cortos y uno largo.",
+        "Después oyes la voz de Ward: «Si escuchas esto, no vengas directamente a la casa. Averigua qué ocurrió en 1907. Busca a Pike. Busca a Bell».",
+        "La grabación vuelve a empezar. Esta vez, detrás de Ward, distingues una respiración que no estaba en la primera repetición."
       ],
       "choices": [
         {
-          "text": "Apagar el receptor y revisar el mapa",
-          "to": "mapa",
-          "time": 3
+          "text": "Apagar el receptor y revisar la libreta",
+          "to": "libreta",
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Ward dejó un mensaje: «La casa del acantilado»",
+        "addClue": "Ward dejó un mensaje: investigar 1907, a Pike y a Bell",
         "sanity": -1
       }
     },
     "radio_fallo": {
       "kicker": "HABITACIÓN 12",
-      "title": "Chispas",
+      "title": "Una voz conocida",
       "text": [
-        "Una válvula estalla con un fogonazo. El aparato queda muerto.",
-        "Durante una fracción de segundo, antes del silencio, escucha una voz pronunciar su apellido con la voz exacta de alguien que murió hace años."
+        "Una válvula estalla. Antes de que el aparato muera, oyes tu nombre.",
+        "La voz que lo pronuncia pertenece a alguien que sabes que murió hace años."
       ],
       "choices": [
         {
-          "text": "Apartarse del aparato y examinar el mapa",
-          "to": "mapa",
-          "time": 3
+          "text": "Apartarte del receptor",
+          "to": "libreta",
+          "time": 2
         }
       ],
       "onEnter": {
@@ -446,87 +408,129 @@
         ]
       }
     },
-    "ventana": {
+    "libreta": {
       "kicker": "HABITACIÓN 12",
-      "title": "Más allá del cristal",
+      "title": "Veinte años",
       "text": [
-        "La sustancia oscura termina en el alféizar. Afuera, en la cornisa, distingue una marca húmeda con cinco dedos demasiado largos."
+        "Ward llenó las últimas páginas con fechas: 1887, 1907, 1927.",
+        "También aparecen cuatro referencias: Kingsport Chronicle, faro de North Head, iglesia de Saint Erasmus y muelle 6.",
+        "La última nota dice: «Bell conserva las fotografías. Pike conserva el cuaderno. Haskins vio algo en el agua. El reverendo sabe qué enterraron»."
       ],
       "choices": [
         {
-          "text": "Asomarse y seguir la huella por la cornisa",
-          "to": "ventana_curiosidad",
-          "time": 2,
-          "requiresMotivation": "La curiosidad"
+          "text": "Analizar el patrón de fechas",
+          "skill": {
+            "name": "Biblioteca",
+            "success": "libreta_exito",
+            "fail": "libreta_fallo"
+          },
+          "time": 5
         },
         {
-          "text": "Examinar la huella con atención",
+          "text": "Guardar los nombres y estudiar el mapa",
+          "to": "mapa",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward investigaba a Bell, Pike, Haskins y Saint Erasmus"
+      }
+    },
+    "libreta_exito": {
+      "kicker": "HABITACIÓN 12",
+      "title": "Un ciclo de veinte años",
+      "text": [
+        "Recuerdas referencias dispersas a desapariciones costeras en Massachusetts en 1887 y 1907.",
+        "Las fechas de Ward encajan demasiado bien. Si el patrón continúa, esta noche no es casual."
+      ],
+      "choices": [
+        {
+          "text": "Estudiar el mapa y organizar la investigación",
+          "to": "mapa",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "La señal parece regresar cada veinte años"
+      }
+    },
+    "libreta_fallo": {
+      "kicker": "HABITACIÓN 12",
+      "title": "Nombres, pero no respuestas",
+      "text": [
+        "Las notas mezclan física, historia y superstición. No consigues reconstruir el patrón.",
+        "Al menos tienes cuatro lugares concretos que investigar."
+      ],
+      "choices": [
+        {
+          "text": "Estudiar el mapa",
+          "to": "mapa",
+          "time": 2
+        }
+      ]
+    },
+    "ventana": {
+      "kicker": "HABITACIÓN 12",
+      "title": "Una huella en la cornisa",
+      "text": [
+        "La sustancia oscura termina en el alféizar. En la cornisa hay una marca húmeda con cinco dedos demasiado largos."
+      ],
+      "choices": [
+        {
+          "text": "Examinarla de cerca",
           "skill": {
             "name": "Descubrir",
-            "success": "ventana_descubrir",
+            "success": "ventana_exito",
             "fail": "ventana_fallo"
           },
           "time": 3
         },
         {
-          "text": "Volver al escritorio",
-          "to": "habitacion12",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "addClue": "Huella anómala en la cornisa",
-        "sanity": -1
-      }
-    },
-    "ventana_curiosidad": {
-      "kicker": "CORNISA",
-      "title": "No mirar hacia abajo",
-      "text": [
-        "Se inclina demasiado. En el callejón, tres pisos más abajo, algo húmedo y pálido permanece inmóvil mirando hacia arriba.",
-        "Cuando parpadea ya no está. En la cornisa, sin embargo, descubre fibras negras enganchadas en un clavo."
-      ],
-      "choices": [
+          "text": "Asomarte más de lo prudente",
+          "to": "ventana_curiosidad",
+          "time": 2,
+          "requiresMotivation": "La curiosidad"
+        },
         {
-          "text": "Volver dentro",
-          "to": "habitacion12",
+          "text": "Volver al escritorio",
+          "to": "mapa",
           "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Fibras negras encontradas en la cornisa",
-        "sanity": -2
+        "sanity": -1,
+        "addClue": "Una huella no humana apareció en la ventana de Ward"
       }
     },
-    "ventana_descubrir": {
+    "ventana_exito": {
       "kicker": "ALFÉIZAR",
-      "title": "Barro de otra costa",
+      "title": "Arena negra",
       "text": [
-        "La huella contiene diminutos fragmentos de concha y una arena gris casi negra.",
-        "Ward anotó en su mapa una cala al norte, justo debajo del faro."
+        "Dentro de la huella encuentras arena gris casi negra y diminutos fragmentos de concha.",
+        "En el mapa de Ward, una cala bajo el faro está marcada con el mismo color."
       ],
       "choices": [
         {
-          "text": "Volver al escritorio",
-          "to": "habitacion12",
+          "text": "Volver al mapa",
+          "to": "mapa",
           "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Arena negra en la huella, igual a la cala bajo el faro"
+        "addClue": "La huella contiene arena de la cala situada bajo el faro"
       }
     },
     "ventana_fallo": {
       "kicker": "ALFÉIZAR",
-      "title": "Un mal apoyo",
+      "title": "Madera podrida",
       "text": [
-        "La madera húmeda cede bajo su mano. Se golpea el antebrazo contra el marco antes de recuperar el equilibrio.",
-        "No descubre nada más."
+        "El marco cede bajo tu mano y te golpeas el antebrazo antes de recuperar el equilibrio.",
+        "No descubres nada más."
       ],
       "choices": [
         {
-          "text": "Volver al escritorio",
-          "to": "habitacion12",
+          "text": "Volver al mapa",
+          "to": "mapa",
           "time": 2
         }
       ],
@@ -534,87 +538,112 @@
         "health": -1
       }
     },
-    "mapa": {
-      "kicker": "MAPA COSTERO",
-      "title": "El cabo norte",
+    "ventana_curiosidad": {
+      "kicker": "CORNISA",
+      "title": "Algo te estaba esperando",
       "text": [
-        "El círculo rojo rodea una vieja finca junto al acantilado, fuera del casco urbano. Ward ha escrito: «Antena visible desde el faro».",
-        "También hay dos marcas menores: el Kingsport Chronicle y el propio faro."
+        "Te inclinas hasta ver el callejón. Tres pisos más abajo hay una figura pálida mirando directamente hacia ti.",
+        "Parpadeas y desaparece. En la cornisa encuentras una fibra negra enganchada en un clavo."
       ],
       "choices": [
         {
-          "text": "Ir directamente a la casa del acantilado",
-          "to": "casa",
-          "time": 35
-        },
-        {
-          "text": "Investigar antes el Kingsport Chronicle",
-          "to": "periodico",
-          "time": 18
-        },
-        {
-          "text": "Visitar el faro",
-          "to": "faro",
-          "time": 28
-        },
-        {
-          "text": "Investigar la habitación 9 antes de salir",
-          "to": "habitacion9",
-          "time": 5,
-          "requiresClue": "Silas Marsh, habitación 9"
+          "text": "Volver dentro",
+          "to": "mapa",
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Casa del acantilado marcada en el mapa"
+        "sanity": -2,
+        "addClue": "Viste una figura pálida bajo la ventana de Ward"
+      }
+    },
+    "mapa": {
+      "kicker": "MAPA DE KINGSPORT",
+      "title": "Antes de ir al acantilado",
+      "text": [
+        "Ward marcó la casa del acantilado, pero escribió sobre ella: «NO IR SIN SABER CÓMO CERRARLA».",
+        "También señaló el Chronicle, el faro, Saint Erasmus y el muelle 6.",
+        "Si sigues su advertencia, todavía tienes trabajo que hacer en Kingsport."
+      ],
+      "choices": [
+        {
+          "text": "Salir hacia el Kingsport Chronicle",
+          "to": "chronicle",
+          "time": 14
+        },
+        {
+          "text": "Ir al faro de North Head",
+          "to": "faro",
+          "time": 24
+        },
+        {
+          "text": "Ir al muelle 6",
+          "to": "muelle6",
+          "time": 18
+        },
+        {
+          "text": "Visitar Saint Erasmus",
+          "to": "iglesia",
+          "time": 17
+        },
+        {
+          "text": "Investigar antes la habitación 9",
+          "to": "habitacion9",
+          "time": 4,
+          "requiresClue": "Silas Marsh aparece en el hotel en 1907 y 1927"
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward marcó una casa del acantilado y advirtió que no fueras sin saber cómo cerrarla"
       }
     },
     "habitacion9": {
       "kicker": "HABITACIÓN 9",
-      "title": "Silas Marsh",
+      "title": "La puerta de Marsh",
       "text": [
-        "Nadie responde. La puerta está cerrada. Por debajo llega olor a sal y algo más: pescado dejado demasiados días al sol."
+        "Nadie responde. Por debajo de la puerta llega olor a sal, algas y pescado pasado."
       ],
       "choices": [
         {
-          "text": "Abrir la cerradura con las herramientas de oficio",
+          "text": "Abrirla con herramientas de oficio",
           "to": "habitacion9_dentro",
-          "time": 4,
+          "time": 3,
           "requiresProfession": "Detective privado"
         },
         {
-          "text": "Forzar discretamente la cerradura",
+          "text": "Forzar la cerradura",
           "skill": {
             "name": "Cerrajería",
             "success": "habitacion9_dentro",
             "fail": "habitacion9_fallo"
           },
-          "time": 7
+          "time": 6
         },
         {
-          "text": "Dejarlo y salir del hotel",
-          "to": "calle_eleccion",
+          "text": "No arriesgarte y salir del hotel",
+          "to": "hub_ciudad",
           "time": 3
         }
       ]
     },
     "habitacion9_fallo": {
       "kicker": "PASILLO",
-      "title": "Pasos en la escalera",
+      "title": "Una oportunidad perdida",
       "text": [
-        "La ganzúa improvisada se parte y le abre un corte en un dedo.",
-        "Al fondo oye subir al recepcionista. No tendrá una segunda oportunidad sin llamar demasiado la atención."
+        "La ganzúa improvisada se parte y te abre un corte en un dedo.",
+        "Oyes pasos subiendo. Si sigues aquí, te encontrarán frente a la puerta."
       ],
       "choices": [
         {
-          "text": "Abandonar el hotel",
-          "to": "calle_eleccion",
+          "text": "Salir del hotel",
+          "to": "hub_ciudad",
           "time": 3
         }
       ],
       "onEnter": {
         "health": -1,
         "setFlag": [
-          "cerraduraFallida",
+          "habitacion9Bloqueada",
           true
         ]
       }
@@ -623,165 +652,185 @@
       "kicker": "HABITACIÓN 9",
       "title": "La maleta de Marsh",
       "text": [
-        "La habitación está casi vacía. Dentro de una maleta hay ropa húmeda, un cuchillo de pescador y una fotografía de Ward junto a la casa del acantilado.",
-        "A su espalda aparece una figura alta que Ward no parece haber visto. Al dorso de la foto alguien escribió: «No dejar que llegue al faro»."
+        "La habitación casi no contiene objetos personales. Dentro de una maleta encuentras ropa húmeda, un cuchillo de pescador y una fotografía.",
+        "La imagen muestra la casa del acantilado en 1907. Silas Marsh aparece en primer plano con exactamente el mismo rostro que hoy.",
+        "Al dorso: «Pike debe morir antes de que encienda la luz»."
       ],
       "choices": [
         {
-          "text": "Registrar el resto de la habitación",
+          "text": "Registrar a fondo la habitación",
           "skill": {
             "name": "Descubrir",
             "success": "habitacion9_extra",
-            "fail": "calle_eleccion"
+            "fail": "hub_ciudad"
           },
           "time": 5
         },
         {
           "text": "Salir antes de que vuelva Marsh",
-          "to": "calle_eleccion",
+          "to": "hub_ciudad",
           "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "Fotografía de Ward ante la casa del acantilado",
+        "sanity": -2,
         "addItem": "Cuchillo de pescador",
-        "sanity": -1
+        "addClue": "Una fotografía de 1907 muestra a Silas Marsh sin haber envejecido"
       }
     },
     "habitacion9_extra": {
       "kicker": "HABITACIÓN 9",
-      "title": "Una llave oxidada",
+      "title": "Una llave y cuatro nombres",
       "text": [
-        "Cosida dentro del forro de la maleta encuentra una pequeña llave de latón con una placa: «FARO — CUARTO DE SERVICIO».",
-        "También hay billetes de tren a Innsmouth, todos sin usar."
+        "Cosida dentro del forro de la maleta encuentras una llave de latón: «FARO — SERVICIO».",
+        "En un bolsillo hay cuatro nombres tachados: Bell, Pike, Haskins y Father Cole. Ward no era el único al que Marsh vigilaba."
       ],
       "choices": [
         {
           "text": "Guardar la llave y salir",
-          "to": "calle_eleccion",
+          "to": "hub_ciudad",
           "time": 2
         }
       ],
       "onEnter": {
         "addItem": "Llave del cuarto de servicio del faro",
-        "addClue": "Marsh ocultaba una llave del faro"
+        "addClue": "Marsh vigilaba a Bell, Pike, Haskins y Father Cole"
       }
     },
-    "calle_eleccion": {
+    "hub_ciudad": {
       "kicker": "KINGSPORT · NOCHE",
-      "title": "Tres caminos",
+      "title": "Una ciudad que sabe demasiado",
       "text": [
-        "La niebla ha empezado a subir desde el puerto. Aún puede investigar antes de dirigirse a la casa del acantilado.",
-        "Cada minuto acerca la medianoche."
+        "La niebla sube desde el puerto y amortigua las campanas.",
+        "Necesitas reconstruir lo ocurrido en 1907 antes de enfrentarte a la casa del acantilado."
       ],
       "choices": [
         {
-          "text": "Ir al Kingsport Chronicle",
-          "to": "periodico",
-          "time": 15
+          "text": "Kingsport Chronicle — Ruth Bell",
+          "to": "chronicle",
+          "time": 12
         },
         {
-          "text": "Ir al faro",
-          "to": "faro",
-          "time": 25
-        },
-        {
-          "text": "Ir ya a la casa del acantilado",
-          "to": "casa",
-          "time": 30
-        }
-      ]
-    },
-    "periodico": {
-      "kicker": "KINGSPORT CHRONICLE · 21:__",
-      "title": "La redacción vacía",
-      "text": [
-        "La redacción está a punto de cerrar. Una mujer de unos sesenta años clasifica fotografías junto a la mesa de linotipia.",
-        "Se presenta como Ruth Bell, archivista. Al mencionar a Ward deja de ordenar papeles."
-      ],
-      "choices": [
-        {
-          "text": "Convencerla de que le muestre los recortes de 1907",
-          "skill": {
-            "name": "Persuasión",
-            "success": "periodico_archivo",
-            "fail": "periodico_fallo"
-          },
-          "time": 6
-        },
-        {
-          "text": "Presentarse como colega de prensa",
-          "to": "periodico_archivo",
-          "time": 3,
-          "requiresProfession": "Periodista"
-        },
-        {
-          "text": "Buscar por su cuenta en los archivadores",
-          "skill": {
-            "name": "Biblioteca",
-            "success": "periodico_archivo",
-            "fail": "periodico_biblio_fallo"
-          },
-          "time": 9
-        },
-        {
-          "text": "Marcharse al faro",
-          "to": "faro",
-          "time": 25
-        },
-        {
-          "text": "Marcharse a la casa del acantilado",
-          "to": "casa",
-          "time": 30
-        }
-      ]
-    },
-    "periodico_archivo": {
-      "kicker": "ARCHIVO DEL CHRONICLE",
-      "title": "1907",
-      "text": [
-        "Encuentra una página amarillenta: «Tres pescadores desaparecen durante una tormenta sin viento».",
-        "En una fotografía, la misma casa del acantilado aparece rodeada por una estructura metálica más pequeña. Al fondo se distingue al antiguo farero, Nathaniel Pike.",
-        "Una nota manuscrita de Ruth dice: «Pike juró que la luz del faro apagó la señal aquella noche»."
-      ],
-      "choices": [
-        {
-          "text": "Preguntar a Ruth qué sabe de Pike",
-          "to": "ruth",
-          "time": 5
-        },
-        {
-          "text": "Ir al faro con la nueva información",
+          "text": "Faro de North Head — Owen Pike",
           "to": "faro",
           "time": 22
         },
         {
-          "text": "Ir directamente a la casa",
-          "to": "casa",
-          "time": 28
+          "text": "Muelle 6 — Walter Haskins",
+          "to": "muelle6",
+          "time": 15
+        },
+        {
+          "text": "Saint Erasmus — Father Cole",
+          "to": "iglesia",
+          "time": 14
+        },
+        {
+          "text": "Revisar si ya entiendes suficiente para seguir la pista de Ward",
+          "to": "revision_investigacion",
+          "time": 1
+        }
+      ]
+    },
+    "chronicle": {
+      "kicker": "KINGSPORT CHRONICLE",
+      "title": "La mujer del archivo",
+      "text": [
+        "La redacción está a punto de cerrar. Ruth Bell, archivista desde hace décadas, clasifica fotografías junto a una mesa de linotipia.",
+        "Al mencionar a Ward deja de trabajar. «Sabía que mandaría a alguien»."
+      ],
+      "choices": [
+        {
+          "text": "Pedirle que te enseñe lo de 1907",
+          "skill": {
+            "name": "Persuasión",
+            "success": "chronicle_confia",
+            "fail": "chronicle_fallo"
+          },
+          "time": 5
+        },
+        {
+          "text": "Presentarte como colega de prensa",
+          "to": "chronicle_confia",
+          "time": 2,
+          "requiresProfession": "Periodista"
+        },
+        {
+          "text": "Buscar por tu cuenta en el archivo",
+          "skill": {
+            "name": "Biblioteca",
+            "success": "chronicle_archivo",
+            "fail": "chronicle_busqueda_fallo"
+          },
+          "time": 8
+        }
+      ]
+    },
+    "chronicle_confia": {
+      "kicker": "ARCHIVO DEL CHRONICLE",
+      "title": "Las fotografías de Ruth",
+      "text": [
+        "Ruth te conduce al sótano. Saca una caja marcada «1907 — NORTH HEAD».",
+        "Las fotografías muestran una noche sin tormenta y un resplandor sobre el acantilado. En una de ellas aparece Silas Marsh.",
+        "Ruth te enseña otra imagen tomada veinte años antes, en 1887. El mismo hombre vuelve a aparecer."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por el hombre de las fotografías",
+          "to": "ruth_marsh",
+          "time": 4
+        },
+        {
+          "text": "Buscar noticias sobre las desapariciones",
+          "to": "chronicle_archivo",
+          "time": 4
         }
       ],
       "onEnter": {
-        "addClue": "En 1907 el faro interrumpió una señal semejante"
+        "addClue": "Ruth conserva fotografías de Marsh en 1887 y 1907"
       }
     },
-    "periodico_fallo": {
-      "kicker": "KINGSPORT CHRONICLE",
-      "title": "Una puerta que se cierra",
+    "chronicle_archivo": {
+      "kicker": "ARCHIVO DEL CHRONICLE",
+      "title": "La noche sin viento",
       "text": [
-        "Ruth cree que pretende escribir una historia sensacionalista y guarda los archivos.",
-        "Antes de echarle, sin embargo, menciona algo: «Si Ward volvió a preguntar por 1907, debería haber hablado con el farero»."
+        "Encuentras la edición del 18 de octubre de 1907: tres pescadores desaparecieron durante una «tormenta sin viento».",
+        "Una nota posterior afirma que el farero Nathaniel Pike mantuvo el haz fijo hacia el acantilado durante siete minutos.",
+        "En la madrugada siguiente aparecieron cientos de peces muertos en la cala negra."
+      ],
+      "choices": [
+        {
+          "text": "Buscar qué ocurrió después con Pike",
+          "to": "chronicle_pike",
+          "time": 4
+        },
+        {
+          "text": "Preguntar a Ruth por la cala negra",
+          "to": "ruth_cala",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "En 1907 el faro apuntó al acantilado justo antes de que cesara el fenómeno"
+      }
+    },
+    "chronicle_fallo": {
+      "kicker": "KINGSPORT CHRONICLE",
+      "title": "Una historia que Ruth no quiere repetir",
+      "text": [
+        "Ruth cree que buscas una historia sensacionalista y se niega a abrir el archivo.",
+        "Cuando te marchas, te alcanza en la puerta y susurra: «Ward fue al faro. Si quiere respuestas, empiece allí»."
       ],
       "choices": [
         {
           "text": "Ir al faro",
           "to": "faro",
-          "time": 24
+          "time": 20
         },
         {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 30
+          "text": "Volver a la calle y elegir otro lugar",
+          "to": "hub_ciudad",
+          "time": 2
         }
       ],
       "onEnter": {
@@ -791,112 +840,140 @@
         ]
       }
     },
-    "periodico_biblio_fallo": {
+    "chronicle_busqueda_fallo": {
       "kicker": "ARCHIVO DEL CHRONICLE",
-      "title": "El tiempo se agota",
+      "title": "Una hora entre polvo",
       "text": [
-        "Los índices son un caos. Tras casi diez minutos solo consigue localizar una referencia incompleta a «luces sobre el cabo» en 1907.",
-        "Ha obtenido poco, pero confirma que el faro estuvo implicado."
+        "Los índices están incompletos. Pierdes tiempo y apenas encuentras una columna sobre luces sobre North Head.",
+        "La referencia menciona al farero Nathaniel Pike."
       ],
       "choices": [
         {
           "text": "Ir al faro",
           "to": "faro",
-          "time": 22
+          "time": 20
         },
         {
-          "text": "Ir a la casa",
-          "to": "casa",
-          "time": 28
+          "text": "Volver a la calle",
+          "to": "hub_ciudad",
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "En 1907 se registraron luces extrañas sobre el cabo"
+        "addClue": "Los registros de 1907 relacionan las luces extrañas con North Head"
       }
     },
-    "ruth": {
+    "ruth_marsh": {
       "kicker": "ARCHIVO DEL CHRONICLE",
-      "title": "Lo que Ruth recuerda",
+      "title": "El hombre que no cambia",
       "text": [
-        "Ruth era niña cuando Pike murió. Su padre decía que el viejo farero había destruido algo en el cuarto de servicio y que desde entonces se negaba a usar una radio.",
-        "«Ward vino ayer. Cuando le conté esto, salió corriendo hacia el faro»."
+        "Ruth vio a Marsh ayer, siguiendo a Ward desde la otra acera.",
+        "Cuando le enseñó a Ward la fotografía de 1907, él dejó de hablar. Después pidió ver todas las imágenes de 1887.",
+        "«No era un parecido», dice Ruth. «Era él»."
       ],
       "choices": [
         {
-          "text": "Preguntar si Ward iba solo",
-          "skill": {
-            "name": "Psicología",
-            "success": "ruth_psico",
-            "fail": "ruth_psico_fallo"
-          },
+          "text": "Preguntar qué buscaba Ward después",
+          "to": "ruth_ward",
           "time": 3
+        }
+      ],
+      "onEnter": {
+        "sanity": -2,
+        "addClue": "Ruth vio a Marsh siguiendo a Ward el día de su desaparición"
+      }
+    },
+    "ruth_ward": {
+      "kicker": "ARCHIVO DEL CHRONICLE",
+      "title": "La siguiente parada de Ward",
+      "text": [
+        "Ward copió una dirección del reverso de una fotografía: la casa de un estibador llamado Walter Haskins, muelle 6.",
+        "Antes de irse te dijo una frase que Ruth no entendió: «Si Haskins sigue soñando con la campana, aún tenemos tiempo»."
+      ],
+      "choices": [
+        {
+          "text": "Ir al muelle 6",
+          "to": "muelle6",
+          "time": 14
         },
         {
-          "text": "Ir inmediatamente al faro",
-          "to": "faro",
-          "time": 20
+          "text": "Volver a la calle",
+          "to": "hub_ciudad",
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Ward visitó el faro el día anterior"
+        "addClue": "Ward buscaba a Walter Haskins por sus sueños sobre una campana"
       }
     },
-    "ruth_psico": {
+    "chronicle_pike": {
       "kicker": "ARCHIVO DEL CHRONICLE",
-      "title": "Una omisión",
+      "title": "El final de Nathaniel Pike",
       "text": [
-        "Ruth duda antes de responder. No vio a Ward solo: un hombre alto, de impermeable oscuro, lo observaba desde la acera.",
-        "Le enseñó la fotografía de Marsh que encontró en un viejo recorte. Es el mismo hombre que figura en el hotel, salvo por un detalle: la foto es de 1907."
+        "Pike murió en 1911. La noticia lo describe como un hombre obsesionado con mantener operativo el viejo sistema manual del faro.",
+        "En el margen, Ruth escribió hace años: «Su nieto Owen conserva el cuaderno»."
       ],
       "choices": [
         {
           "text": "Ir al faro",
           "to": "faro",
           "time": 20
+        },
+        {
+          "text": "Seguir hablando con Ruth",
+          "to": "ruth_cala",
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Silas Marsh aparece idéntico en una fotografía de 1907",
-        "sanity": -2
+        "addClue": "Owen Pike conserva el cuaderno de su abuelo Nathaniel"
       }
     },
-    "ruth_psico_fallo": {
+    "ruth_cala": {
       "kicker": "ARCHIVO DEL CHRONICLE",
-      "title": "Una despedida incómoda",
+      "title": "La cala negra",
       "text": [
-        "Ruth se arrepiente de haber hablado. Cierra el archivador y le pide que se marche.",
-        "La referencia al faro sigue siendo suficiente."
+        "Ruth te cuenta que de niña estaba prohibido bajar a la cala bajo el faro.",
+        "Los pescadores decían que allí el eco devolvía palabras que nadie había pronunciado todavía."
       ],
       "choices": [
         {
-          "text": "Ir al faro",
-          "to": "faro",
-          "time": 22
+          "text": "Preguntar si Ward bajó a la cala",
+          "to": "ruth_ward",
+          "time": 2
+        },
+        {
+          "text": "Volver a la calle",
+          "to": "hub_ciudad",
+          "time": 2
         }
-      ]
+      ],
+      "onEnter": {
+        "addClue": "La cala negra bajo el faro tiene una historia de ecos imposibles"
+      }
     },
     "faro": {
-      "kicker": "FARO DE KINGSPORT",
-      "title": "La luz en la niebla",
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "La luz que gira",
       "text": [
-        "El faro está automatizado desde hace años, pero una vivienda de servicio sigue ocupada. Un hombre anciano abre la puerta antes de que llame.",
-        "«Si viene por Ward, llega tarde», dice. Se llama Owen Pike, nieto del farero de 1907."
+        "Owen Pike abre la puerta antes de que llames. Tiene más de setenta años y sostiene una lámpara de aceite aunque el edificio dispone de electricidad.",
+        "«Vienes por Ward», dice. No parece una pregunta."
       ],
       "choices": [
         {
-          "text": "Mostrarle la carta de Ward y pedir ayuda",
-          "to": "faro_confianza",
-          "time": 4,
+          "text": "Mostrar la carta de Ward",
+          "to": "faro_confia",
+          "time": 3,
           "requiresItem": "Carta del profesor Ward"
         },
         {
-          "text": "Preguntar qué ocurrió en 1907",
+          "text": "Convencerlo para que hable de 1907",
           "skill": {
             "name": "Persuasión",
-            "success": "faro_confianza",
+            "success": "faro_confia",
             "fail": "faro_fallo"
           },
-          "time": 6
+          "time": 5
         },
         {
           "text": "Examinar discretamente el edificio",
@@ -905,32 +982,27 @@
             "success": "faro_descubrir",
             "fail": "faro_descubrir_fallo"
           },
-          "time": 5
+          "time": 4
         },
         {
-          "text": "Usar la llave oculta por Marsh",
+          "text": "Usar la llave del cuarto de servicio",
           "to": "faro_servicio",
           "time": 3,
           "requiresItem": "Llave del cuarto de servicio del faro"
-        },
-        {
-          "text": "Marcharse a la casa del acantilado",
-          "to": "casa",
-          "time": 25
         }
       ]
     },
-    "faro_confianza": {
-      "kicker": "FARO DE KINGSPORT",
+    "faro_confia": {
+      "kicker": "FARO DE NORTH HEAD",
       "title": "El cuaderno de Nathaniel Pike",
       "text": [
-        "Owen entrega un cuaderno encuadernado en cuero. Su abuelo escribió que en 1907 la casa del acantilado emitió una «llamada» hacia algo situado más allá de la costa.",
-        "Pike descubrió que la lente giratoria del faro, orientada directamente hacia la antena en el momento adecuado, desestabilizaba la resonancia.",
-        "Ward se llevó una copia del esquema ayer."
+        "Owen coloca sobre la mesa un cuaderno de cuero. Su abuelo escribió que la casa del acantilado emitía una «llamada» hacia algo que no estaba en el océano.",
+        "En 1907 descubrió que mantener el haz del faro fijo sobre la antena interfería con la señal.",
+        "Pero no fue suficiente. Alguien tuvo que destruir una pieza dentro de la casa."
       ],
       "choices": [
         {
-          "text": "Estudiar el esquema del faro",
+          "text": "Estudiar el esquema eléctrico del faro",
           "skill": {
             "name": "Electricidad",
             "success": "faro_esquema",
@@ -939,116 +1011,103 @@
           "time": 6
         },
         {
-          "text": "Preguntar por Marsh",
-          "to": "faro_marsh",
+          "text": "Preguntar qué pieza destruyeron en la casa",
+          "to": "pike_pieza",
           "time": 4
         },
         {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 24
+          "text": "Preguntar por Ward",
+          "to": "pike_ward",
+          "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "La luz del faro puede romper la resonancia de la antena"
+        "addClue": "El haz del faro puede debilitar la señal de la casa"
       }
     },
-    "faro_esquema": {
-      "kicker": "CUARTO DE SERVICIO",
-      "title": "Un segundo interruptor",
+    "faro_fallo": {
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "Una historia que Owen protege",
       "text": [
-        "El esquema revela algo que Ward quizá no vio: puede bloquearse la rotación de la lente y mantener el haz fijo sobre la casa.",
-        "No hace falta estar en el faro para activarlo si se puentea el relé de servicio."
+        "Owen se niega a convertir a su abuelo en una anécdota para curiosos.",
+        "Antes de cerrar, dice algo que no pretendía decir: «Ward sabía que la luz sola no bastaba»."
       ],
       "choices": [
         {
-          "text": "Memorizar el procedimiento y partir hacia la casa",
-          "to": "casa",
-          "time": 22
+          "text": "Examinar el exterior del faro",
+          "skill": {
+            "name": "Descubrir",
+            "success": "faro_descubrir",
+            "fail": "faro_descubrir_fallo"
+          },
+          "time": 4
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
         }
       ],
       "onEnter": {
-        "addClue": "Puede fijarse el haz del faro sobre la casa desde el relé de servicio"
-      }
-    },
-    "faro_esquema_fallo": {
-      "kicker": "CUADERNO DE PIKE",
-      "title": "Símbolos incompletos",
-      "text": [
-        "Comprende el principio general, pero no el detalle técnico.",
-        "Aun así, sabe que el faro puede interferir con la antena."
-      ],
-      "choices": [
-        {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 23
-        }
-      ]
-    },
-    "faro_marsh": {
-      "kicker": "FARO DE KINGSPORT",
-      "title": "El hombre que no envejece",
-      "text": [
-        "Owen palidece al oír el nombre. Su abuelo dibujó a un hombre llamado Marsh en 1907.",
-        "El dibujo coincide demasiado bien con el huésped del North Star."
-      ],
-      "choices": [
-        {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 23
-        }
-      ],
-      "onEnter": {
-        "addClue": "Nathaniel Pike ya conocía a Silas Marsh en 1907",
-        "sanity": -1
+        "setFlag": [
+          "owenDesconfia",
+          true
+        ]
       }
     },
     "faro_descubrir": {
-      "kicker": "FARO DE KINGSPORT",
-      "title": "Marcas recientes",
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "Sabotaje reciente",
       "text": [
-        "En la puerta del cuarto de servicio hay arañazos recientes alrededor de la cerradura. Dentro, una caja de conexiones ha sido manipulada.",
-        "Encuentra además una cerilla del Hotel North Star."
+        "En el cuarto de servicio descubres arañazos recientes en la cerradura.",
+        "Dentro, varios cables del relé manual han sido cortados. En el suelo encuentras una herramienta marcada con las iniciales S.M."
       ],
       "choices": [
         {
-          "text": "Abrir el cuarto de servicio",
-          "to": "faro_servicio",
-          "time": 3
+          "text": "Intentar reparar el relé",
+          "skill": {
+            "name": "Electricidad",
+            "success": "faro_reparado",
+            "fail": "faro_reparacion_fallo"
+          },
+          "time": 7
         },
         {
-          "text": "Preguntar a Owen por las marcas",
-          "to": "faro_confianza",
-          "time": 2
+          "text": "Buscar a Owen y preguntarle por el sabotaje",
+          "to": "faro_confia",
+          "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "Alguien del hotel manipuló recientemente el faro"
+        "addClue": "Marsh saboteó el mecanismo manual del faro"
       }
     },
     "faro_descubrir_fallo": {
-      "kicker": "FARO DE KINGSPORT",
+      "kicker": "FARO DE NORTH HEAD",
       "title": "Niebla y prisa",
       "text": [
-        "La humedad y la oscuridad dificultan distinguir nada útil.",
-        "Owen observa su registro con creciente impaciencia."
+        "La humedad y la oscuridad no te dejan distinguir nada útil.",
+        "Owen observa tu inspección con creciente desconfianza."
       ],
       "choices": [
         {
-          "text": "Preguntar a Owen por 1907",
-          "to": "faro_confianza",
+          "text": "Hablar con Owen",
+          "to": "faro_confia",
           "time": 3
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
         }
       ]
     },
     "faro_servicio": {
       "kicker": "CUARTO DE SERVICIO",
-      "title": "El relé",
+      "title": "El relé cortado",
       "text": [
-        "La habitación huele a ozono. Una tapa metálica está abierta y varios cables han sido cortados.",
-        "Alguien trató de inutilizar el mecanismo que orienta la lente. En el suelo hay una herramienta marcada con las iniciales S.M."
+        "La llave de Marsh abre la puerta. Dentro encuentras el relé manual con dos cables cortados.",
+        "Alguien intentó asegurarse de que el faro no pudiera mantener el haz fijo hacia la casa."
       ],
       "choices": [
         {
@@ -1058,30 +1117,35 @@
             "success": "faro_reparado",
             "fail": "faro_reparacion_fallo"
           },
-          "time": 8
+          "time": 7
         },
         {
-          "text": "Dejarlo y marchar a la casa",
-          "to": "casa",
-          "time": 24
+          "text": "Buscar a Owen",
+          "to": "faro_confia",
+          "time": 3
         }
       ],
       "onEnter": {
-        "addClue": "Marsh saboteó el mecanismo del faro"
+        "addClue": "El mecanismo del faro fue saboteado deliberadamente"
       }
     },
     "faro_reparado": {
       "kicker": "CUARTO DE SERVICIO",
       "title": "La luz preparada",
       "text": [
-        "Rehace el puente de emergencia. Cuando acciona la palanca, el haz se detiene unos segundos apuntando directamente hacia el acantilado.",
-        "Ha preparado una salida que Ward quizá no tenga."
+        "Reconectas el relé y pruebas el sistema. El haz se detiene y queda clavado sobre el acantilado.",
+        "Has devuelto al faro la capacidad que Nathaniel Pike utilizó en 1907."
       ],
       "choices": [
         {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 22
+          "text": "Hablar con Owen antes de marcharte",
+          "to": "pike_ward",
+          "time": 3
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
         }
       ],
       "onEnter": {
@@ -1089,21 +1153,26 @@
           "faroPreparado",
           true
         ],
-        "addClue": "El faro está reparado y listo para fijar su haz"
+        "addClue": "Has reparado el faro y puedes fijar su haz sobre la casa"
       }
     },
     "faro_reparacion_fallo": {
       "kicker": "CUARTO DE SERVICIO",
       "title": "Una descarga",
       "text": [
-        "El relé chisporrotea y una descarga le recorre el brazo. Consigue evitar que el sistema quede peor, pero no logra repararlo.",
-        "El faro sigue girando con normalidad."
+        "El relé chisporrotea y una descarga te recorre el brazo.",
+        "Evitas empeorar la avería, pero no consigues reparar el mecanismo."
       ],
       "choices": [
         {
-          "text": "Ir a la casa del acantilado",
-          "to": "casa",
-          "time": 23
+          "text": "Hablar con Owen",
+          "to": "pike_ward",
+          "time": 3
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
         }
       ],
       "onEnter": {
@@ -1114,34 +1183,1098 @@
         ]
       }
     },
-    "casa": {
-      "kicker": "ACANTILADO NORTE",
-      "title": "La casa que escucha",
+    "faro_esquema": {
+      "kicker": "CUADERNO DE PIKE",
+      "title": "Siete minutos",
       "text": [
-        "La finca se alza contra un cielo sin estrellas. Del tejado surge una antena imposible, formada por círculos concéntricos de cobre.",
-        "La puerta principal está abierta. Desde el sótano llega el mismo zumbido que escuchó en el hotel.",
-        "A la izquierda hay un cobertizo. A la derecha, un sendero conduce al borde del acantilado."
+        "Comprendes el esquema: el haz debía mantenerse fijo durante varios minutos para desestabilizar la resonancia.",
+        "Pike anotó además una frecuencia de control: 740 kHz. Ward no la escribió por casualidad."
       ],
       "choices": [
         {
-          "text": "Examinar primero la antena desde el exterior",
-          "to": "antena",
+          "text": "Preguntar por la pieza que destruyeron en 1907",
+          "to": "pike_pieza",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "El faro debilita la resonancia y 740 kHz actúa como frecuencia de control"
+      }
+    },
+    "faro_esquema_fallo": {
+      "kicker": "CUADERNO DE PIKE",
+      "title": "Un esquema a medias",
+      "text": [
+        "Entiendes el principio general, pero no todos los detalles.",
+        "Lo importante queda claro: el faro interfiere con la antena cuando mantiene el haz fijo."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por lo que ocurrió dentro de la casa",
+          "to": "pike_pieza",
+          "time": 3
+        }
+      ]
+    },
+    "pike_pieza": {
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "La válvula de sincronía",
+      "text": [
+        "Nathaniel escribió que un hombre llamado Samuel Bell entró en la casa durante el fenómeno y arrancó una válvula central de la antena.",
+        "Bell sobrevivió solo dos días. Antes de morir entregó algo a la iglesia de Saint Erasmus."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar qué entregó a la iglesia",
+          "to": "pike_iglesia",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "En 1907 Samuel Bell arrancó una válvula de la antena y llevó algo a Saint Erasmus"
+      }
+    },
+    "pike_iglesia": {
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "Lo que fue enterrado",
+      "text": [
+        "Owen no sabe qué era. Su abuelo solo escribió: «Cole prometió enterrarlo bajo piedra consagrada».",
+        "El actual sacerdote de Saint Erasmus también se apellida Cole."
+      ],
+      "choices": [
+        {
+          "text": "Ir a Saint Erasmus",
+          "to": "iglesia",
+          "time": 20
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
+        }
+      ],
+      "onEnter": {
+        "addClue": "Saint Erasmus ocultó algo recuperado de la casa en 1907"
+      }
+    },
+    "pike_ward": {
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "Ward estuvo aquí",
+      "text": [
+        "Ward llegó ayer por la tarde. Leyó el cuaderno, dibujó el relé y preguntó cómo bajar a la cala negra.",
+        "Owen intentó detenerlo. Ward respondió: «Si Haskins tiene razón, la entrada no está en la casa. Está debajo»."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar quién es Haskins",
+          "to": "pike_haskins",
+          "time": 2
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward bajó a la cala negra buscando una entrada bajo la casa"
+      }
+    },
+    "pike_haskins": {
+      "kicker": "FARO DE NORTH HEAD",
+      "title": "El hombre del muelle 6",
+      "text": [
+        "Walter Haskins fue pescador antes de convertirse en estibador. En 1907 su padre fue uno de los tres hombres desaparecidos.",
+        "Desde hace semanas Walter asegura escuchar una campana bajo el agua."
+      ],
+      "choices": [
+        {
+          "text": "Ir al muelle 6",
+          "to": "muelle6",
+          "time": 18
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 20
+        }
+      ],
+      "onEnter": {
+        "addClue": "Walter Haskins escucha una campana bajo el agua"
+      }
+    },
+    "muelle6": {
+      "kicker": "MUELLE 6",
+      "title": "El hombre que no quiere dormir",
+      "text": [
+        "Walter Haskins trabaja descargando cajas aunque ya ha terminado su turno. Tiene los ojos rojos y evita mirar el agua.",
+        "Cuando dices el nombre de Ward, aprieta tanto la cuerda que sostiene que se le blanquean los nudillos."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por Ward",
+          "to": "haskins_ward",
+          "time": 3
+        },
+        {
+          "text": "Preguntar por la campana bajo el agua",
+          "skill": {
+            "name": "Persuasión",
+            "success": "haskins_campana",
+            "fail": "haskins_fallo"
+          },
           "time": 5
+        },
+        {
+          "text": "Estudiar su estado",
+          "skill": {
+            "name": "Psicología",
+            "success": "haskins_psico",
+            "fail": "haskins_psico_fallo"
+          },
+          "time": 3
+        }
+      ]
+    },
+    "haskins_ward": {
+      "kicker": "MUELLE 6",
+      "title": "Ward hizo la pregunta correcta",
+      "text": [
+        "Ward vino anoche y preguntó si las huellas de la cala entraban o salían del agua.",
+        "Haskins le respondió: «Salen». Ward palideció y pidió que le enseñara una antigua entrada de contrabandistas bajo North Head."
+      ],
+      "choices": [
+        {
+          "text": "Pedir que te muestre dónde está la entrada",
+          "to": "haskins_tunel",
+          "time": 4
+        },
+        {
+          "text": "Preguntar por la campana",
+          "to": "haskins_campana",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Haskins enseñó a Ward una entrada de contrabandistas bajo North Head"
+      }
+    },
+    "haskins_campana": {
+      "kicker": "MUELLE 6",
+      "title": "La campana que suena antes",
+      "text": [
+        "Haskins oye una campana en sueños. Siempre da cuatro golpes.",
+        "Lo inquietante es que al despertar puede predecir qué barco entrará en el puerto unas horas después.",
+        "Anoche soñó con una campana distinta: dio cinco golpes y, después, oyó su propia voz pidiendo ayuda desde debajo del agua."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar cuándo sonará el quinto golpe",
+          "to": "haskins_quinto",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "sanity": -1,
+        "addClue": "Haskins sueña con una campana que parece anticipar acontecimientos"
+      }
+    },
+    "haskins_quinto": {
+      "kicker": "MUELLE 6",
+      "title": "Medianoche",
+      "text": [
+        "«Esta noche», responde. «Cuando el reloj del ayuntamiento marque las doce».",
+        "Saca del bolsillo un trozo de cuerda mojada que Ward le dejó: «Si alguien venía por él, debía darle esto». Hay un pequeño símbolo dibujado en el nudo."
+      ],
+      "choices": [
+        {
+          "text": "Examinar el símbolo",
+          "skill": {
+            "name": "Ocultismo",
+            "success": "haskins_simbolo",
+            "fail": "haskins_simbolo_fallo"
+          },
+          "time": 4
+        },
+        {
+          "text": "Guardar la cuerda y preguntar por el túnel",
+          "to": "haskins_tunel",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addItem": "Cuerda de Ward",
+        "addClue": "Haskins cree que algo ocurrirá a medianoche"
+      }
+    },
+    "haskins_simbolo": {
+      "kicker": "MUELLE 6",
+      "title": "Un signo de contención",
+      "text": [
+        "El dibujo no es una invocación. Es una marca de cierre.",
+        "Recuerdas haber visto variantes en textos sobre lugares donde una comunidad intentaba «sellar» algo sin comprenderlo del todo."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar dónde vio Ward ese símbolo",
+          "to": "haskins_tunel",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "El símbolo de la cuerda de Ward representa un cierre o contención"
+      }
+    },
+    "haskins_simbolo_fallo": {
+      "kicker": "MUELLE 6",
+      "title": "Un dibujo incómodo",
+      "text": [
+        "No reconoces el símbolo, pero mirarlo demasiado tiempo te produce una presión detrás de los ojos.",
+        "Haskins te pide que lo guardes."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por el túnel",
+          "to": "haskins_tunel",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "sanity": -1
+      }
+    },
+    "haskins_tunel": {
+      "kicker": "MUELLE 6",
+      "title": "La entrada bajo North Head",
+      "text": [
+        "Haskins dibuja un camino desde la cala negra hasta una grieta en la roca.",
+        "La marea baja deja libre el paso durante menos de una hora. El túnel llega, según su padre, hasta debajo de la casa del acantilado.",
+        "Ward entró por allí ayer. Haskins lo vio regresar herido, pero vivo."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar qué encontró Ward",
+          "to": "haskins_regreso",
+          "time": 3
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 15
+        }
+      ],
+      "onEnter": {
+        "addClue": "Existe un túnel desde la cala negra hasta debajo de la casa"
+      }
+    },
+    "haskins_regreso": {
+      "kicker": "MUELLE 6",
+      "title": "Lo que Ward trajo de vuelta",
+      "text": [
+        "Ward llevaba una pieza metálica envuelta en su chaqueta. Dijo que no podía destruirla y que la llevaría «donde ya guardaron la otra».",
+        "Eso solo puede referirse a Saint Erasmus."
+      ],
+      "choices": [
+        {
+          "text": "Ir a Saint Erasmus",
+          "to": "iglesia",
+          "time": 13
+        },
+        {
+          "text": "Volver a la ciudad",
+          "to": "hub_ciudad",
+          "time": 15
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward recuperó una pieza bajo la casa y la llevó a Saint Erasmus"
+      }
+    },
+    "haskins_psico": {
+      "kicker": "MUELLE 6",
+      "title": "No está loco",
+      "text": [
+        "Haskins está agotado y aterrorizado, pero no parece delirante.",
+        "Cuando evita mirar el agua no es por superstición: teme reconocer algo que ya ha visto."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar qué vio",
+          "to": "haskins_vision",
+          "time": 3
+        }
+      ]
+    },
+    "haskins_psico_fallo": {
+      "kicker": "MUELLE 6",
+      "title": "Una acusación equivocada",
+      "text": [
+        "Insinúas que la falta de sueño puede estar afectándolo. Haskins se enfurece.",
+        "«Ward sí me creyó». Tendrás que conseguir información por otra vía."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar al menos por Ward",
+          "to": "haskins_ward",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "setFlag": [
+          "haskinsOfendido",
+          true
+        ]
+      }
+    },
+    "haskins_fallo": {
+      "kicker": "MUELLE 6",
+      "title": "Una cuerda que se rompe",
+      "text": [
+        "Haskins se niega a hablar de sus sueños. Tira de una caja con demasiada fuerza y la cuerda se rompe.",
+        "Te apartas justo a tiempo, pero una esquina te golpea la pierna."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por Ward en lugar de insistir",
+          "to": "haskins_ward",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "health": -1
+      }
+    },
+    "haskins_vision": {
+      "kicker": "MUELLE 6",
+      "title": "El rostro bajo el muelle",
+      "text": [
+        "Hace cuatro noches Haskins vio a una persona flotando boca arriba entre los pilotes.",
+        "Cuando se inclinó para ayudarla, la figura abrió los ojos. Tenía la cara de su padre, desaparecido en 1907.",
+        "Su padre habría tenido más de ochenta años."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por el túnel que enseñó a Ward",
+          "to": "haskins_tunel",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "sanity": -3,
+        "addClue": "Haskins vio bajo el muelle el rostro de su padre desaparecido en 1907"
+      }
+    },
+    "iglesia": {
+      "kicker": "SAINT ERASMUS",
+      "title": "Piedra consagrada",
+      "text": [
+        "La iglesia está casi vacía. Father Thomas Cole apaga velas cerca del altar.",
+        "Cuando mencionas a Ward, te conduce sin preguntas a una pequeña sacristía y cierra la puerta."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar qué vino a buscar Ward",
+          "to": "cole_ward",
+          "time": 3
+        },
+        {
+          "text": "Mostrar el símbolo de la cuerda",
+          "to": "cole_simbolo",
+          "time": 3,
+          "requiresItem": "Cuerda de Ward"
+        },
+        {
+          "text": "Preguntar qué enterraron en 1907",
+          "skill": {
+            "name": "Persuasión",
+            "success": "cole_cripta",
+            "fail": "cole_fallo"
+          },
+          "time": 5
+        }
+      ]
+    },
+    "cole_ward": {
+      "kicker": "SACRISTÍA",
+      "title": "La visita de Ward",
+      "text": [
+        "Ward llegó ayer con una pieza metálica negra y pidió abrir la cripta.",
+        "Cole se negó hasta que Ward enseñó una fotografía de 1907. Entonces bajaron juntos.",
+        "Ward salió una hora después con un pequeño cilindro envuelto en tela y dijo: «Ahora sé cómo cerrarla»."
+      ],
+      "choices": [
+        {
+          "text": "Pedir que te lleve a la cripta",
+          "to": "cole_cripta",
+          "time": 3
+        },
+        {
+          "text": "Preguntar qué era el cilindro",
+          "to": "cole_cilindro",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward encontró en la cripta una pieza relacionada con el cierre de la señal"
+      }
+    },
+    "cole_simbolo": {
+      "kicker": "SACRISTÍA",
+      "title": "El signo de Samuel Bell",
+      "text": [
+        "Cole reconoce el símbolo inmediatamente. Está grabado en la caja que Samuel Bell entregó a la parroquia en 1907.",
+        "«No es un símbolo religioso», admite. «Mi abuelo lo llamó simplemente la cerradura»."
+      ],
+      "choices": [
+        {
+          "text": "Pedir ver la caja",
+          "to": "cole_cripta",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "La iglesia conserva un objeto de 1907 marcado con el símbolo de cierre"
+      }
+    },
+    "cole_fallo": {
+      "kicker": "SACRISTÍA",
+      "title": "Un secreto familiar",
+      "text": [
+        "Cole se niega a profanar la tumba de sus antepasados por una historia que no puede demostrar.",
+        "Cuando te dispones a marcharte, las luces eléctricas parpadean y las campanas de la iglesia dan un golpe solas.",
+        "Cole cambia de opinión."
+      ],
+      "choices": [
+        {
+          "text": "Bajar con él a la cripta",
+          "to": "cole_cripta",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "sanity": -1
+      }
+    },
+    "cole_cripta": {
+      "kicker": "CRIPTA DE SAINT ERASMUS",
+      "title": "La caja de 1907",
+      "text": [
+        "Bajo una losa sin nombre encuentras una caja de hierro envuelta en tela encerada.",
+        "Está vacía. En el interior hay una cavidad con forma de cilindro y una nota de Nathaniel Pike: «Una mitad aquí. La otra debe permanecer en la máquina. Nunca unirlas salvo para cerrar la puerta».",
+        "Ward se llevó la mitad guardada en la iglesia."
+      ],
+      "choices": [
+        {
+          "text": "Leer el resto de la nota",
+          "to": "cole_nota",
+          "time": 4
+        }
+      ],
+      "onEnter": {
+        "addClue": "El cierre requiere unir dos mitades de un cilindro: una estaba en la iglesia y otra sigue en la máquina"
+      }
+    },
+    "cole_nota": {
+      "kicker": "CRIPTA DE SAINT ERASMUS",
+      "title": "Cómo se cierra una puerta imposible",
+      "text": [
+        "La nota explica el procedimiento: debilitar primero la resonancia con el faro, después unir las dos mitades del cilindro en el transmisor.",
+        "Si se hace mientras la frecuencia de control está activa, «la abertura se plegará sobre sí misma».",
+        "Pike añadió una advertencia: «No mirar a través de ella durante el cierre»."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por el cilindro que se llevó Ward",
+          "to": "cole_cilindro",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Procedimiento de cierre: faro, frecuencia de control y las dos mitades del cilindro"
+      }
+    },
+    "cole_cilindro": {
+      "kicker": "CRIPTA DE SAINT ERASMUS",
+      "title": "La mitad perdida",
+      "text": [
+        "Cole vio la pieza que Ward recuperó bajo la casa: era la otra mitad del cilindro.",
+        "Ward unió ambas durante unos segundos. Las dos piezas encajaron sin junta visible.",
+        "Después volvió a separarlas y se llevó solo la de la iglesia. «Si Marsh consigue ambas, puede abrirla sin esperar al ciclo»."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar adónde fue Ward después",
+          "to": "cole_destino",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward lleva una mitad del cilindro; la otra permanece en la máquina de Marsh"
+      }
+    },
+    "cole_destino": {
+      "kicker": "SACRISTÍA",
+      "title": "El último trayecto de Ward",
+      "text": [
+        "Ward salió de Saint Erasmus a las 19:10. Dijo que iba a encontrarse con alguien en la estación de bombeo abandonada junto a Reservoir Road.",
+        "No mencionó ningún nombre."
+      ],
+      "choices": [
+        {
+          "text": "Ir a la estación de bombeo",
+          "to": "bombeo",
+          "time": 18
+        },
+        {
+          "text": "Volver a la ciudad y completar la investigación",
+          "to": "hub_ciudad",
+          "time": 10
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward fue a la estación de bombeo antes de desaparecer"
+      }
+    },
+    "revision_investigacion": {
+      "kicker": "KINGSPORT",
+      "title": "Lo que ya sabes",
+      "text": [
+        "Repasas las notas. Aún no basta con saber dónde está la casa: necesitas entender qué ocurre allí y qué intentó hacer Ward.",
+        "La pista más reciente apunta a la estación de bombeo abandonada de Reservoir Road."
+      ],
+      "choices": [
+        {
+          "text": "Seguir la pista de la estación de bombeo",
+          "to": "bombeo",
+          "time": 15,
+          "requiresClue": "Ward fue a la estación de bombeo antes de desaparecer"
+        },
+        {
+          "text": "Seguir investigando en Kingsport",
+          "to": "hub_ciudad",
+          "time": 1
+        }
+      ]
+    },
+    "bombeo": {
+      "kicker": "RESERVOIR ROAD",
+      "title": "La estación de bombeo",
+      "text": [
+        "El edificio lleva años abandonado. La puerta está forzada y hay marcas recientes de neumáticos en el barro.",
+        "Dentro huele a aceite, humedad y sangre."
+      ],
+      "choices": [
+        {
+          "text": "Entrar con cuidado",
+          "skill": {
+            "name": "Descubrir",
+            "success": "bombeo_exito",
+            "fail": "bombeo_fallo"
+          },
+          "time": 4
+        },
+        {
+          "text": "Entrar directamente",
+          "to": "bombeo_interior",
+          "time": 2
+        }
+      ]
+    },
+    "bombeo_exito": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Una emboscada que ya ocurrió",
+      "text": [
+        "Antes de entrar ves una vaina de cartucho bajo una tubería y una huella de arrastre.",
+        "Alguien fue atacado aquí y arrastrado hacia el interior. También encuentras un trozo de tela de la chaqueta de Ward."
+      ],
+      "choices": [
+        {
+          "text": "Seguir el rastro",
+          "to": "bombeo_interior",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward fue atacado en la estación de bombeo"
+      }
+    },
+    "bombeo_fallo": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Cristal bajo la bota",
+      "text": [
+        "Pisas un cristal. El chasquido resuena por todo el edificio.",
+        "Desde alguna parte del interior oyes un movimiento breve y después silencio."
+      ],
+      "choices": [
+        {
+          "text": "Continuar",
+          "to": "bombeo_interior",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "setFlag": [
+          "algoAlertadoBombeo",
+          true
+        ]
+      }
+    },
+    "bombeo_interior": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "La habitación de las fotografías",
+      "text": [
+        "En la antigua sala de bombas encuentras una mesa, una silla rota y decenas de fotografías recientes.",
+        "Ward aparece entrando y saliendo del hotel, del Chronicle, del faro y de Saint Erasmus.",
+        "Marsh llevaba días siguiéndolo."
+      ],
+      "choices": [
+        {
+          "text": "Registrar la mesa",
+          "to": "bombeo_mesa",
+          "time": 4
+        },
+        {
+          "text": "Examinar una puerta metálica al fondo",
+          "to": "bombeo_puerta",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Marsh vigiló toda la investigación de Ward"
+      }
+    },
+    "bombeo_mesa": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "El mensaje que Ward no pudo enviar",
+      "text": [
+        "Dentro de un cajón encuentras una hoja escrita por Ward con manchas de sangre.",
+        "«Si me capturan, no vengas por la carretera. Entra por la cala. Marsh espera que todos usen la casa. El transmisor está conectado a las cuevas».",
+        "Debajo dibujó el símbolo de cierre y escribió 740 → LUZ → CILINDRO."
+      ],
+      "choices": [
+        {
+          "text": "Guardar la nota y abrir la puerta metálica",
+          "to": "bombeo_puerta",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward dejó el orden exacto: 740 → faro → cilindro, y recomienda entrar por la cala"
+      }
+    },
+    "bombeo_puerta": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Un testigo encerrado",
+      "text": [
+        "La puerta está cerrada desde fuera. Al otro lado oyes una respiración.",
+        "Una voz de mujer pregunta si eres Ward."
+      ],
+      "choices": [
+        {
+          "text": "Abrir la cerradura",
+          "skill": {
+            "name": "Cerrajería",
+            "success": "bombeo_testigo",
+            "fail": "bombeo_puerta_fallo"
+          },
+          "time": 5
+        },
+        {
+          "text": "Forzarla con violencia",
+          "skill": {
+            "name": "Pelea",
+            "success": "bombeo_testigo",
+            "fail": "bombeo_puerta_fallo"
+          },
+          "time": 4
+        }
+      ]
+    },
+    "bombeo_puerta_fallo": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Una puerta obstinada",
+      "text": [
+        "La puerta no cede. La mujer de dentro te guía hasta una barra de emergencia oculta bajo una tapa.",
+        "Consigues abrirla, pero pierdes varios minutos."
+      ],
+      "choices": [
+        {
+          "text": "Ayudarla a salir",
+          "to": "bombeo_testigo",
+          "time": 6
+        }
+      ]
+    },
+    "bombeo_testigo": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Miriam Vale",
+      "text": [
+        "La mujer se llama Miriam Vale. Trabajaba para Ward como ayudante de laboratorio.",
+        "Marsh la capturó cuando intentaban comprobar la frecuencia 740. Ward consiguió escapar con el cilindro, pero volvió después para rescatarla.",
+        "Marsh lo esperaba. Se llevó a Ward hacia la casa hace menos de una hora."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar qué sabe del transmisor",
+          "to": "miriam_transmisor",
+          "time": 4
+        },
+        {
+          "text": "Preguntar por la frecuencia 740",
+          "to": "miriam_740",
+          "time": 3
+        },
+        {
+          "text": "Preguntar cómo entrar sin que Marsh te vea",
+          "to": "miriam_entrada",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Marsh capturó a Ward y lo llevó a la casa hace menos de una hora"
+      }
+    },
+    "miriam_transmisor": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Una máquina incompleta",
+      "text": [
+        "Miriam ayudó a Ward a reconstruir parte del transmisor creyendo que estudiarían una anomalía atmosférica.",
+        "Cuando comprendieron que la máquina abría algo, sabotearon el circuito.",
+        "Marsh reparó casi todo, pero aún necesita a Ward: «La máquina responde mejor a una mente que ya ha escuchado la señal»."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por el cierre",
+          "to": "miriam_cierre",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "Ward es necesario como ancla humana para estabilizar la apertura"
+      }
+    },
+    "miriam_740": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "La frecuencia de control",
+      "text": [
+        "740 no abre nada. Obliga al transmisor a mantener una fase estable.",
+        "Durante esa fase, el faro puede debilitar la resonancia y el cilindro puede cerrarla.",
+        "«Sin 740, intentar cerrar la abertura sería como coser una herida que sigue moviéndose»."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar cómo activar 740",
+          "to": "miriam_cierre",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "addClue": "740 kHz estabiliza la apertura el tiempo suficiente para cerrarla"
+      }
+    },
+    "miriam_cierre": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "Tres pasos",
+      "text": [
+        "Miriam lo resume: primero activar 740 en el transmisor; después mantener el faro sobre la antena; por último unir las dos mitades del cilindro.",
+        "Ward lleva una mitad. La otra está instalada en el transmisor.",
+        "Si has reparado el faro, puedes ejecutar el procedimiento completo."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar por una alternativa si el faro falla",
+          "to": "miriam_alternativa",
+          "time": 3
+        },
+        {
+          "text": "Preguntar por la entrada de la cala",
+          "to": "miriam_entrada",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
+      }
+    },
+    "miriam_alternativa": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "La opción destructiva",
+      "text": [
+        "Ward preparó cargas en los soportes de la antena. No cerrarían la abertura de forma limpia, pero destruirían la resonancia.",
+        "Miriam te entrega un detonador que Marsh no encontró.",
+        "«Si lo usas, no estés dentro de la casa»."
+      ],
+      "choices": [
+        {
+          "text": "Guardar el detonador",
+          "to": "miriam_entrada",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addItem": "Detonador de Ward",
+        "addClue": "Ward preparó cargas para destruir la antena como último recurso"
+      }
+    },
+    "miriam_entrada": {
+      "kicker": "ESTACIÓN DE BOMBEO",
+      "title": "La cala negra",
+      "text": [
+        "Miriam confirma lo que dijo Haskins: durante la marea baja puedes entrar por una grieta de la cala y alcanzar las cuevas bajo el sótano.",
+        "Es la única ruta que evita la entrada principal.",
+        "El reloj de la pared marca las 23:17."
+      ],
+      "choices": [
+        {
+          "text": "Ir a la cala negra y entrar por las cuevas",
+          "to": "cala",
+          "time": 24
+        },
+        {
+          "text": "Ir por la carretera y entrar en la casa",
+          "to": "casa_exterior",
+          "time": 25
+        }
+      ],
+      "onEnter": {
+        "setFlag": [
+          "acto3Desbloqueado",
+          true
+        ]
+      }
+    },
+    "cala": {
+      "kicker": "CALA NEGRA · 23:41",
+      "title": "La grieta bajo la roca",
+      "text": [
+        "La marea ha dejado libre una franja de arena negra. Las huellas salen del agua y se dirigen a una grieta en la base del acantilado.",
+        "Dentro oyes un sonido grave que parece una campana muy lejana."
+      ],
+      "choices": [
+        {
+          "text": "Entrar por la grieta",
+          "to": "cuevas",
+          "time": 3
+        },
+        {
+          "text": "Examinar las huellas antes de entrar",
+          "skill": {
+            "name": "Descubrir",
+            "success": "cala_huellas",
+            "fail": "cuevas"
+          },
+          "time": 3
+        }
+      ]
+    },
+    "cala_huellas": {
+      "kicker": "CALA NEGRA",
+      "title": "Huellas que no regresan",
+      "text": [
+        "Hay docenas de huellas diferentes, algunas humanas y otras no.",
+        "Todas salen del agua. Ninguna vuelve.",
+        "Entre ellas reconoces la suela de los zapatos de Ward, marcada por una mancha de sangre."
+      ],
+      "choices": [
+        {
+          "text": "Seguir el rastro de Ward hacia las cuevas",
+          "to": "cuevas",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "sanity": -2,
+        "addClue": "Ward fue llevado por la cala hacia las cuevas bajo la casa"
+      }
+    },
+    "cuevas": {
+      "kicker": "BAJO NORTH HEAD",
+      "title": "El túnel de contrabandistas",
+      "text": [
+        "El túnel asciende entre roca húmeda y viejos tablones. En las paredes aparecen marcas recientes de herramientas.",
+        "Más adelante la galería se divide: una rama sube hacia la casa; otra desciende hacia el sonido de la campana."
+      ],
+      "choices": [
+        {
+          "text": "Subir hacia la casa",
+          "to": "sotano_secreto",
+          "time": 5
+        },
+        {
+          "text": "Investigar el sonido de la campana",
+          "to": "camara_campana",
+          "time": 5
+        }
+      ]
+    },
+    "camara_campana": {
+      "kicker": "CUEVAS",
+      "title": "La campana que no existe",
+      "text": [
+        "La galería termina en una cámara inundada. No hay ninguna campana.",
+        "Sin embargo, el quinto golpe resuena a tu alrededor. Durante un instante el agua refleja el techo de una habitación que no estás viendo.",
+        "En ese reflejo, Ward está atado frente a una máquina."
+      ],
+      "choices": [
+        {
+          "text": "Apartar la mirada y volver al túnel",
+          "to": "sotano_secreto",
+          "time": 3
+        },
+        {
+          "text": "Seguir mirando para aprender más",
+          "to": "camara_mirar",
+          "time": 2,
+          "requiresMotivation": "Demostrar que lo imposible existe"
+        }
+      ],
+      "onEnter": {
+        "sanity": -3,
+        "addClue": "La campana de Haskins parece conectar la cueva con el transmisor"
+      }
+    },
+    "camara_mirar": {
+      "kicker": "CUEVAS",
+      "title": "Un segundo demasiado largo",
+      "text": [
+        "El reflejo cambia. Ves a Marsh detrás de Ward y, detrás de Marsh, un lugar sin perspectiva ni distancia.",
+        "Algo al otro lado se vuelve hacia ti.",
+        "Sales de la cámara sabiendo exactamente dónde está Ward… y sabiendo que aquello también sabe que existes."
+      ],
+      "choices": [
+        {
+          "text": "Subir hacia la casa",
+          "to": "sotano_secreto",
+          "time": 3
+        }
+      ],
+      "onEnter": {
+        "sanity": -5,
+        "setFlag": [
+          "vistoAlOtroLado",
+          true
+        ],
+        "addClue": "Viste la abertura antes de que estuviera completamente formada"
+      }
+    },
+    "sotano_secreto": {
+      "kicker": "BAJO LA CASA",
+      "title": "Detrás del muro",
+      "text": [
+        "El túnel termina tras un muro falso. A través de una rendija ves el sótano.",
+        "Ward está atado frente al transmisor. Marsh trabaja de espaldas a ti.",
+        "Una aguja sube lentamente hacia una zona roja."
+      ],
+      "choices": [
+        {
+          "text": "Esperar y observar el procedimiento",
+          "skill": {
+            "name": "Descubrir",
+            "success": "sotano_observar",
+            "fail": "sotano_descubierto"
+          },
+          "time": 3
+        },
+        {
+          "text": "Salir de inmediato y ayudar a Ward",
+          "to": "sotano",
+          "time": 1
+        }
+      ]
+    },
+    "sotano_observar": {
+      "kicker": "SÓTANO",
+      "title": "El orden de Marsh",
+      "text": [
+        "Marsh introduce una pieza cilíndrica en el transmisor: la mitad que permanecía en la máquina.",
+        "Luego gira un selector de 1210 a 740 y espera.",
+        "Has confirmado el orden exacto sin que te vea."
+      ],
+      "choices": [
+        {
+          "text": "Acercarte a Ward en silencio",
+          "to": "ward_susurro",
+          "time": 2
+        },
+        {
+          "text": "Sabotear el transmisor desde la sombra",
+          "skill": {
+            "name": "Electricidad",
+            "success": "sabotaje_temprano",
+            "fail": "sotano_descubierto"
+          },
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "Viste a Marsh activar la mitad del cilindro y cambiar el transmisor a 740"
+      }
+    },
+    "sotano_descubierto": {
+      "kicker": "SÓTANO",
+      "title": "Ya sabe que estás aquí",
+      "text": [
+        "Una tabla cruje. Marsh se vuelve inmediatamente.",
+        "«Ward tenía razón. Mandaría a alguien».",
+        "La aguja sigue subiendo."
+      ],
+      "choices": [
+        {
+          "text": "Enfrentarte a Marsh",
+          "to": "sotano",
+          "time": 1
+        }
+      ],
+      "onEnter": {
+        "setFlag": [
+          "marshTeEspera",
+          true
+        ]
+      }
+    },
+    "ward_susurro": {
+      "kicker": "SÓTANO",
+      "title": "La mitad que falta",
+      "text": [
+        "Llegas hasta Ward mientras Marsh trabaja al otro lado del transmisor.",
+        "Ward abre la mano: dentro guarda la mitad del cilindro de Saint Erasmus.",
+        "«Cuando llegue al rojo, 740. Después la luz. Después une esto con la pieza de la máquina. Si falla algo, corre»."
+      ],
+      "choices": [
+        {
+          "text": "Tomar la mitad del cilindro",
+          "to": "sotano",
+          "time": 1
+        }
+      ],
+      "onEnter": {
+        "addItem": "Mitad del cilindro de cierre",
+        "addClue": "Ward te entrega la mitad del cilindro necesaria para cerrar la abertura"
+      }
+    },
+    "casa_exterior": {
+      "kicker": "CASA DEL ACANTILADO · 23:42",
+      "title": "La casa que escucha",
+      "text": [
+        "Llegas por la carretera. La antena del tejado vibra aunque no sopla viento.",
+        "La puerta principal está abierta. Un coche de Ward está aparcado junto al cobertizo.",
+        "Desde el sótano llega el zumbido de 1210 kHz."
+      ],
+      "choices": [
+        {
+          "text": "Examinar la antena",
+          "to": "antena",
+          "time": 4
         },
         {
           "text": "Registrar el cobertizo",
           "to": "cobertizo",
-          "time": 5
-        },
-        {
-          "text": "Seguir el sendero hacia el acantilado",
-          "to": "acantilado",
-          "time": 5
+          "time": 4
         },
         {
           "text": "Entrar en la casa",
           "to": "casa_interior",
-          "time": 3
+          "time": 2
         }
       ]
     },
@@ -1149,60 +2282,59 @@
       "kicker": "EXTERIOR",
       "title": "Geometría incorrecta",
       "text": [
-        "Los aros parecen cruzarse entre sí aunque sabe que eso es geométricamente imposible.",
-        "En el centro hay una placa con una ranura del tamaño de una válvula de radio. Cada pocos segundos vibra sin que sople viento."
+        "Los aros de cobre parecen cruzarse entre sí de una forma geométricamente imposible.",
+        "En el centro reconoces una cavidad cilíndrica conectada al transmisor del sótano."
       ],
       "choices": [
         {
           "text": "Analizar la estructura",
           "skill": {
             "name": "Electricidad",
-            "success": "antena_tecnica",
+            "success": "antena_exito",
             "fail": "antena_fallo"
           },
-          "time": 5
+          "time": 4
         },
         {
           "text": "Entrar en la casa",
           "to": "casa_interior",
-          "time": 3
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "La antena puede desconectarse retirando su válvula",
         "sanity": -2
       }
     },
-    "antena_tecnica": {
+    "antena_exito": {
       "kicker": "ANTENA",
-      "title": "Un circuito abierto",
+      "title": "Una resonancia frágil",
       "text": [
-        "La válvula central no alimenta la antena: la sincroniza.",
-        "Si la retira cuando el transmisor esté a máxima potencia, la resonancia colapsará. Hacerlo antes solo provocaría que Marsh pudiera sustituirla."
+        "La antena depende de una única válvula de sincronía. Destruirla en el momento de máxima potencia colapsaría la señal.",
+        "No sería un cierre limpio, pero podría impedir que algo cruzara."
       ],
       "choices": [
         {
-          "text": "Entrar en la casa",
+          "text": "Memorizarlo y entrar en la casa",
           "to": "casa_interior",
-          "time": 3
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "La válvula debe retirarse cuando el transmisor alcance máxima potencia"
+        "addClue": "La válvula central puede destruir la resonancia en el momento de máxima potencia"
       }
     },
     "antena_fallo": {
       "kicker": "ANTENA",
-      "title": "El sonido dentro de los dientes",
+      "title": "Voces detrás de ti",
       "text": [
-        "Se acerca demasiado a uno de los aros. El zumbido desaparece y durante un instante oye una multitud susurrando detrás de usted.",
-        "Al girarse no hay nadie."
+        "El zumbido desaparece de pronto y oyes a varias personas susurrando tu nombre a tu espalda.",
+        "Cuando te giras, el jardín está vacío."
       ],
       "choices": [
         {
           "text": "Entrar en la casa",
           "to": "casa_interior",
-          "time": 3
+          "time": 2
         }
       ],
       "onEnter": {
@@ -1211,20 +2343,20 @@
     },
     "cobertizo": {
       "kicker": "COBERTIZO",
-      "title": "Herramientas y cadenas",
+      "title": "El plan B de Ward",
       "text": [
-        "Entre herramientas oxidadas encuentra cadenas cortadas, dos latas de combustible y una caja con componentes de radio.",
-        "Una etiqueta de envío lleva el nombre de Ward. Alguien utilizó material del profesor para terminar la antena."
+        "Encuentras herramientas, cable y dos cargas fijadas a los soportes de la antena.",
+        "Ward las preparó, pero el cable del detonador termina cortado."
       ],
       "choices": [
         {
-          "text": "Buscar algo útil",
+          "text": "Reconectar las cargas",
           "skill": {
-            "name": "Descubrir",
-            "success": "cobertizo_util",
-            "fail": "casa_interior"
+            "name": "Electricidad",
+            "success": "cargas_reparadas",
+            "fail": "cargas_fallo"
           },
-          "time": 4
+          "time": 5
         },
         {
           "text": "Entrar en la casa",
@@ -1233,256 +2365,20 @@
         }
       ],
       "onEnter": {
-        "addClue": "Marsh utilizó componentes de Ward para completar la antena"
+        "addClue": "Ward colocó cargas en los soportes de la antena"
       }
     },
-    "cobertizo_util": {
+    "cargas_reparadas": {
       "kicker": "COBERTIZO",
-      "title": "Una palanca de hierro",
+      "title": "Una salida violenta",
       "text": [
-        "Detrás de un banco encuentra una palanca corta y robusta.",
-        "No es elegante, pero podría servir para abrir una puerta o destrozar un mecanismo."
+        "Reconectas el circuito. El detonador de Ward responde con una pequeña luz roja.",
+        "Si todo lo demás falla, podrás destruir la antena desde el exterior."
       ],
       "choices": [
         {
-          "text": "Llevarla y entrar en la casa",
+          "text": "Entrar en la casa",
           "to": "casa_interior",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "addItem": "Palanca de hierro"
-      }
-    },
-    "acantilado": {
-      "kicker": "BORDE DEL ACANTILADO",
-      "title": "La cala negra",
-      "text": [
-        "Cincuenta metros más abajo, la marea deja al descubierto una pequeña cala de arena negra.",
-        "Hay huellas que salen del agua y suben por la roca. No hay huellas que vuelvan al mar."
-      ],
-      "choices": [
-        {
-          "text": "Observar las huellas con calma",
-          "skill": {
-            "name": "Descubrir",
-            "success": "acantilado_exito",
-            "fail": "acantilado_fallo"
-          },
-          "time": 4
-        },
-        {
-          "text": "Volver a la casa",
-          "to": "casa_interior",
-          "time": 3
-        }
-      ],
-      "onEnter": {
-        "sanity": -1
-      }
-    },
-    "acantilado_exito": {
-      "kicker": "BORDE DEL ACANTILADO",
-      "title": "Una ruta de entrada",
-      "text": [
-        "Las huellas desaparecen bajo una grieta natural en la roca, justo debajo de la casa.",
-        "Debe existir un acceso desde el sótano hacia las cuevas."
-      ],
-      "choices": [
-        {
-          "text": "Volver y entrar en la casa",
-          "to": "casa_interior",
-          "time": 3
-        }
-      ],
-      "onEnter": {
-        "addClue": "El sótano conecta con cuevas bajo el acantilado"
-      }
-    },
-    "acantilado_fallo": {
-      "kicker": "BORDE DEL ACANTILADO",
-      "title": "Una piedra que cae",
-      "text": [
-        "Una piedra se desprende bajo su pie y desaparece en la oscuridad.",
-        "Tarda demasiado en escuchar el impacto."
-      ],
-      "choices": [
-        {
-          "text": "Alejarse del borde y entrar en la casa",
-          "to": "casa_interior",
-          "time": 3
-        }
-      ],
-      "onEnter": {
-        "sanity": -1
-      }
-    },
-    "casa_interior": {
-      "kicker": "CASA DEL ACANTILADO",
-      "title": "Habitaciones sin polvo",
-      "text": [
-        "El recibidor parece abandonado, pero el suelo no tiene polvo. Alguien vive aquí.",
-        "Hay una escalera hacia el piso superior, una puerta cerrada junto a la cocina y otra escalera que desciende al sótano.",
-        "El zumbido procede de abajo."
-      ],
-      "choices": [
-        {
-          "text": "Registrar el piso superior",
-          "to": "piso_superior",
-          "time": 6
-        },
-        {
-          "text": "Examinar la puerta cerrada",
-          "to": "puerta_laboratorio",
-          "time": 3
-        },
-        {
-          "text": "Bajar directamente al sótano",
-          "to": "sotano_entrada",
-          "time": 3
-        }
-      ]
-    },
-    "piso_superior": {
-      "kicker": "PLANTA SUPERIOR",
-      "title": "La habitación de Marsh",
-      "text": [
-        "Una cama sin usar. Decenas de fotografías clavadas en la pared.",
-        "Hay imágenes de la casa fechadas en 1887, 1907 y 1927. En todas aparece el mismo hombre: Silas Marsh, exactamente con el mismo rostro.",
-        "En la fotografía más reciente Ward aparece inconsciente."
-      ],
-      "choices": [
-        {
-          "text": "Buscar documentos entre las fotografías",
-          "skill": {
-            "name": "Descubrir",
-            "success": "marsh_diario",
-            "fail": "casa_interior"
-          },
-          "time": 5
-        },
-        {
-          "text": "Bajar al sótano",
-          "to": "sotano_entrada",
-          "time": 3
-        }
-      ],
-      "onEnter": {
-        "addClue": "Marsh no ha envejecido en cuarenta años",
-        "sanity": -3
-      }
-    },
-    "marsh_diario": {
-      "kicker": "PLANTA SUPERIOR",
-      "title": "El precio de la llamada",
-      "text": [
-        "Encuentra hojas escritas con varias caligrafías, aunque todas firman «S. Marsh».",
-        "La llamada necesita una mente humana para fijar el destino. Ward no está construyendo la máquina: es parte de ella.",
-        "La última línea dice: «A medianoche, el umbral permanecerá abierto durante noventa segundos»."
-      ],
-      "choices": [
-        {
-          "text": "Bajar al sótano",
-          "to": "sotano_entrada",
-          "time": 3
-        }
-      ],
-      "onEnter": {
-        "addClue": "Ward será usado como ancla humana durante la apertura"
-      }
-    },
-    "puerta_laboratorio": {
-      "kicker": "PLANTA BAJA",
-      "title": "La puerta reforzada",
-      "text": [
-        "La cerradura es reciente y demasiado sólida para el resto de la casa.",
-        "Tras ella se oye un tic-tac eléctrico."
-      ],
-      "choices": [
-        {
-          "text": "Abrirla con la palanca",
-          "to": "laboratorio",
-          "time": 3,
-          "requiresItem": "Palanca de hierro"
-        },
-        {
-          "text": "Forzar la cerradura",
-          "skill": {
-            "name": "Cerrajería",
-            "success": "laboratorio",
-            "fail": "puerta_lab_fallo"
-          },
-          "time": 6
-        },
-        {
-          "text": "Dejarla y bajar al sótano",
-          "to": "sotano_entrada",
-          "time": 2
-        }
-      ]
-    },
-    "puerta_lab_fallo": {
-      "kicker": "PLANTA BAJA",
-      "title": "Metal contra metal",
-      "text": [
-        "La ganzúa se atasca. Desde abajo el zumbido cambia de tono.",
-        "Sea lo que sea que está ocurriendo, acaba de acelerarse."
-      ],
-      "choices": [
-        {
-          "text": "Bajar al sótano",
-          "to": "sotano_entrada",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "time": 0,
-        "setFlag": [
-          "marshAlertado",
-          true
-        ]
-      }
-    },
-    "laboratorio": {
-      "kicker": "LABORATORIO",
-      "title": "Los cálculos de Ward",
-      "text": [
-        "La habitación contiene pizarras llenas de ecuaciones. Reconoce la letra de Ward en la mitad de ellas.",
-        "Al principio colaboró voluntariamente. Después comprendió lo que estaba construyendo.",
-        "Sobre una mesa hay un pequeño detonador improvisado conectado a cargas colocadas en los soportes de la antena."
-      ],
-      "choices": [
-        {
-          "text": "Entender cómo usar las cargas",
-          "skill": {
-            "name": "Electricidad",
-            "success": "cargas_preparadas",
-            "fail": "laboratorio_fallo"
-          },
-          "time": 5
-        },
-        {
-          "text": "Llevarse el detonador sin tocar nada más",
-          "to": "sotano_entrada",
-          "time": 2
-        }
-      ],
-      "onEnter": {
-        "addItem": "Detonador improvisado",
-        "addClue": "Ward preparó cargas para destruir la antena"
-      }
-    },
-    "cargas_preparadas": {
-      "kicker": "LABORATORIO",
-      "title": "Último recurso",
-      "text": [
-        "Ward dejó el circuito incompleto a propósito. Termina dos conexiones.",
-        "El detonador funcionará una sola vez. Si lo activa demasiado cerca, la casa puede venirse abajo."
-      ],
-      "choices": [
-        {
-          "text": "Guardar el detonador y bajar",
-          "to": "sotano_entrada",
           "time": 2
         }
       ],
@@ -1493,166 +2389,467 @@
         ]
       }
     },
-    "laboratorio_fallo": {
-      "kicker": "LABORATORIO",
-      "title": "Un cable equivocado",
+    "cargas_fallo": {
+      "kicker": "COBERTIZO",
+      "title": "Un cable quemado",
       "text": [
-        "Una chispa quema el aislamiento. El detonador sigue intacto, pero ya no confía en que las cargas respondan como deberían.",
-        "Usarlo será arriesgado."
+        "El cable chisporrotea y te quema los dedos.",
+        "Las cargas siguen ahí, pero ya no confías en el circuito."
       ],
       "choices": [
         {
-          "text": "Guardar el detonador y bajar",
-          "to": "sotano_entrada",
+          "text": "Entrar en la casa",
+          "to": "casa_interior",
           "time": 2
         }
       ],
       "onEnter": {
+        "health": -1,
         "setFlag": [
           "cargasInestables",
           true
         ]
       }
     },
-    "sotano_entrada": {
-      "kicker": "ESCALERA DEL SÓTANO",
-      "title": "Noventa segundos",
+    "casa_interior": {
+      "kicker": "CASA DEL ACANTILADO",
+      "title": "Habitaciones sin polvo",
       "text": [
-        "A mitad de la escalera escucha la voz de Ward, débil: «No le escuches».",
-        "Otra voz responde desde abajo con perfecta calma: «Ya ha llegado. Empieza»."
+        "El recibidor parece abandonado, pero el suelo está limpio. Alguien vive aquí.",
+        "Una escalera sube al piso superior. Una puerta reforzada conduce a un laboratorio. Otra escalera baja al sótano."
       ],
       "choices": [
         {
-          "text": "Bajar sin hacer ruido",
-          "skill": {
-            "name": "Descubrir",
-            "success": "sotano_observa",
-            "fail": "sotano"
-          },
-          "time": 2
+          "text": "Registrar el piso superior",
+          "to": "piso_superior",
+          "time": 5
         },
         {
-          "text": "Bajar de inmediato",
+          "text": "Entrar en el laboratorio",
+          "to": "laboratorio_puerta",
+          "time": 3
+        },
+        {
+          "text": "Bajar al sótano",
           "to": "sotano",
-          "time": 1
+          "time": 2
         }
       ]
     },
-    "sotano_observa": {
-      "kicker": "SÓTANO",
-      "title": "Antes de ser visto",
+    "piso_superior": {
+      "kicker": "PLANTA SUPERIOR",
+      "title": "Cuarenta años con el mismo rostro",
       "text": [
-        "Desde la escalera ve a Ward atado frente a un transmisor enorme. Marsh ajusta controles junto a una puerta de piedra que da a las cuevas.",
-        "Una aguja asciende lentamente hacia una marca roja. Todavía no sabe que está aquí."
+        "Una pared está cubierta de fotografías de 1887, 1907 y 1927.",
+        "Silas Marsh aparece en todas ellas sin envejecer.",
+        "En la más reciente, Ward está inconsciente en la estación de bombeo."
       ],
       "choices": [
         {
-          "text": "Acercarse a Ward antes de actuar",
-          "to": "ward_susurro",
-          "time": 1
-        },
-        {
-          "text": "Intentar sabotear el transmisor desde la sombra",
+          "text": "Registrar documentos y diarios",
           "skill": {
-            "name": "Electricidad",
-            "success": "final_radio",
-            "fail": "sotano"
+            "name": "Descubrir",
+            "success": "diario_marsh",
+            "fail": "casa_interior"
           },
-          "time": 2
+          "time": 5
         },
         {
-          "text": "Esperar a que la aguja llegue a la marca roja",
+          "text": "Bajar al sótano",
           "to": "sotano",
-          "time": 1
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "sanity": -3,
+        "addClue": "Marsh no ha envejecido en al menos cuarenta años"
+      }
+    },
+    "diario_marsh": {
+      "kicker": "PLANTA SUPERIOR",
+      "title": "Lo que Marsh llama hogar",
+      "text": [
+        "Las páginas están firmadas con distintas caligrafías, pero todas dicen S. Marsh.",
+        "No describen una criatura adorada como un dios. Describen un lugar.",
+        "Marsh quiere abrir un camino hacia «la costa verdadera», un sitio que considera su hogar y que no parece pertenecer a nuestro mundo."
+      ],
+      "choices": [
+        {
+          "text": "Bajar al sótano",
+          "to": "sotano",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "sanity": -2,
+        "addClue": "Marsh intenta abrir un camino hacia un lugar que llama «la costa verdadera»"
+      }
+    },
+    "laboratorio_puerta": {
+      "kicker": "LABORATORIO",
+      "title": "Una cerradura reciente",
+      "text": [
+        "La puerta está cerrada. El marco tiene marcas de golpes desde dentro."
+      ],
+      "choices": [
+        {
+          "text": "Forzar la cerradura",
+          "skill": {
+            "name": "Cerrajería",
+            "success": "laboratorio",
+            "fail": "laboratorio_fallo_puerta"
+          },
+          "time": 5
+        },
+        {
+          "text": "Bajar al sótano",
+          "to": "sotano",
+          "time": 2
+        }
+      ]
+    },
+    "laboratorio_fallo_puerta": {
+      "kicker": "LABORATORIO",
+      "title": "Demasiado ruido",
+      "text": [
+        "La cerradura se atasca con un chasquido metálico.",
+        "Desde abajo el zumbido cambia de tono. Marsh sabe que hay alguien en la casa."
+      ],
+      "choices": [
+        {
+          "text": "Bajar al sótano",
+          "to": "sotano",
+          "time": 2
         }
       ],
       "onEnter": {
         "setFlag": [
-          "ventajaSotano",
+          "marshTeEspera",
           true
         ]
       }
     },
-    "ward_susurro": {
-      "kicker": "SÓTANO",
-      "title": "La advertencia de Ward",
+    "laboratorio": {
+      "kicker": "LABORATORIO",
+      "title": "Los cálculos de Ward",
       "text": [
-        "Ward apenas mueve los labios. «No puede mantener la llamada y vigilar la antena a la vez».",
-        "«Si has preparado el faro, úsalo cuando la aguja llegue al rojo. Si no… destruye la válvula. Y no mires la puerta cuando se abra»."
+        "Las pizarras muestran que Ward participó en la reconstrucción del transmisor antes de comprender su propósito.",
+        "En un margen escribió: «No es comunicación. Es geometría. La señal enseña a dos lugares a ocupar el mismo espacio».",
+        "En la mesa hay un esquema del cilindro de cierre."
       ],
       "choices": [
         {
-          "text": "Esperar el momento",
+          "text": "Estudiar el esquema",
+          "skill": {
+            "name": "Biblioteca",
+            "success": "laboratorio_esquema",
+            "fail": "laboratorio_esquema_fallo"
+          },
+          "time": 5
+        },
+        {
+          "text": "Bajar al sótano",
           "to": "sotano",
-          "time": 1
+          "time": 2
         }
       ],
       "onEnter": {
-        "addClue": "Ward confirma que hay que actuar cuando la aguja llegue al rojo"
+        "addClue": "La señal hace que dos lugares ocupen temporalmente el mismo espacio"
       }
     },
-    "sotano": {
-      "kicker": "SÓTANO · 23:__",
-      "title": "Elias Ward",
+    "laboratorio_esquema": {
+      "kicker": "LABORATORIO",
+      "title": "La cerradura completa",
       "text": [
-        "Ward está vivo, atado a una silla frente a un transmisor enorme. Silas Marsh ajusta los controles. Al verle sonríe.",
-        "«Llegas justo a tiempo. Esta noche responderán».",
-        "La aguja entra en la zona roja. Detrás de Marsh, la oscuridad de la puerta de piedra parece adquirir profundidad."
+        "El esquema confirma lo aprendido: cuando las dos mitades del cilindro se unen durante 740 kHz y con la resonancia debilitada, el sistema invierte su fase.",
+        "No solo corta la señal. Cierra la abertura."
       ],
       "choices": [
         {
-          "text": "Lanzarse sobre Marsh",
+          "text": "Bajar al sótano",
+          "to": "sotano",
+          "time": 2
+        }
+      ],
+      "onEnter": {
+        "addClue": "El cilindro completo invierte la fase y cierra la abertura"
+      }
+    },
+    "laboratorio_esquema_fallo": {
+      "kicker": "LABORATORIO",
+      "title": "Demasiado tarde para teoría",
+      "text": [
+        "Entiendes que el cilindro es importante, pero no consigues reconstruir todos los pasos.",
+        "El zumbido del sótano aumenta. Ya no tienes tiempo."
+      ],
+      "choices": [
+        {
+          "text": "Bajar al sótano",
+          "to": "sotano",
+          "time": 2
+        }
+      ]
+    },
+    "sotano": {
+      "kicker": "SÓTANO · 23:56",
+      "title": "La llamada",
+      "text": [
+        "Ward está atado frente a un transmisor enorme. Silas Marsh gira el selector hacia 740 kHz y sonríe al verte.",
+        "«Has aprendido mucho para llegar hasta aquí».",
+        "La aguja entra lentamente en la zona roja. Detrás de Marsh, una pared de piedra comienza a parecer más profunda de lo que permite la habitación."
+      ],
+      "choices": [
+        {
+          "text": "Intentar liberar a Ward",
           "skill": {
             "name": "Pelea",
-            "success": "final_pelea",
-            "fail": "final_pelea_fallo"
+            "success": "ward_liberado",
+            "fail": "pelea_fallo"
           },
           "time": 1
-        },
-        {
-          "text": "Correr fuera y arrancar la válvula de la antena",
-          "to": "final_antena",
-          "time": 2,
-          "requiresClue": "La válvula debe retirarse cuando el transmisor alcance máxima potencia"
         },
         {
           "text": "Sabotear el transmisor",
           "skill": {
             "name": "Electricidad",
-            "success": "final_radio",
-            "fail": "final_radio_fallo"
+            "success": "sabotaje_temprano",
+            "fail": "sabotaje_fallo"
           },
-          "time": 1,
-          "requiresClue": "Ward modificó la radio para recibir 1210 kHz"
+          "time": 1
         },
         {
-          "text": "Activar el faro reparado",
-          "to": "final_faro",
+          "text": "Seguir el procedimiento completo de cierre",
+          "to": "procedimiento_740",
           "time": 1,
-          "requiresFlag": "faroPreparado"
+          "requiresClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
         },
         {
-          "text": "Accionar el detonador de Ward",
+          "text": "Prepararte para destruir la antena",
           "to": "final_cargas",
           "time": 1,
-          "requiresItem": "Detonador improvisado"
+          "requiresItem": "Detonador de Ward"
         },
         {
-          "text": "Decirle a Marsh que quiere ver qué responde",
-          "to": "final_curiosidad",
+          "text": "Esperar a que se abra para ver qué hay al otro lado",
+          "to": "final_ver",
           "time": 1,
           "requiresMotivation": "Demostrar que lo imposible existe"
         }
       ]
     },
-    "final_faro": {
-      "kicker": "FINAL",
-      "title": "La luz contra la noche",
+    "ward_liberado": {
+      "kicker": "SÓTANO",
+      "title": "Ward vuelve a ponerse en pie",
       "text": [
-        "Acciona el relé portátil que Owen le enseñó a preparar. A lo lejos, el haz del faro deja de girar y queda clavado sobre la casa.",
-        "La antena comienza a vibrar. Marsh grita por primera vez.",
-        "La oscuridad de la puerta se pliega sobre sí misma con un estampido que no produce sonido. Ward cae al suelo cuando sus correas se aflojan.",
-        "Al amanecer, el faro sigue apuntando al acantilado. Owen asegura que nadie tocó los controles."
+        "Derribas a Marsh contra el transmisor y rompes una de las correas de Ward.",
+        "Ward libera la otra mano y te entrega la mitad del cilindro.",
+        "«Ahora. Hazlo ahora»."
+      ],
+      "choices": [
+        {
+          "text": "Iniciar el cierre completo",
+          "to": "procedimiento_740",
+          "time": 1,
+          "requiresClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
+        },
+        {
+          "text": "Destruir la válvula central",
+          "to": "final_valvula",
+          "time": 1,
+          "requiresClue": "La válvula central puede destruir la resonancia en el momento de máxima potencia"
+        },
+        {
+          "text": "Accionar las cargas",
+          "to": "final_cargas",
+          "time": 1,
+          "requiresItem": "Detonador de Ward"
+        }
+      ],
+      "onEnter": {
+        "addItem": "Mitad del cilindro de cierre"
+      }
+    },
+    "pelea_fallo": {
+      "kicker": "SÓTANO",
+      "title": "Marsh no es lo que parece",
+      "text": [
+        "Marsh te aparta con una fuerza imposible para un hombre de su tamaño.",
+        "Golpeas el suelo y pierdes el aire. Su piel, durante un instante, parece demasiado pálida y húmeda.",
+        "Ward grita que la aguja ya está en rojo."
+      ],
+      "choices": [
+        {
+          "text": "Intentar el procedimiento de cierre",
+          "to": "procedimiento_740",
+          "time": 1,
+          "requiresClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
+        },
+        {
+          "text": "Accionar las cargas",
+          "to": "final_cargas",
+          "time": 1,
+          "requiresItem": "Detonador de Ward"
+        },
+        {
+          "text": "Sabotear el transmisor como puedas",
+          "skill": {
+            "name": "Electricidad",
+            "success": "sabotaje_temprano",
+            "fail": "final_malo"
+          },
+          "time": 1
+        }
+      ],
+      "onEnter": {
+        "health": -2,
+        "sanity": -1
+      }
+    },
+    "sabotaje_temprano": {
+      "kicker": "SÓTANO",
+      "title": "El transmisor cae de fase",
+      "text": [
+        "Cortas el retorno de resonancia. La aguja cae y la abertura se contrae.",
+        "Marsh se lanza hacia el panel. Ward grita que no bastará: si vuelve a estabilizarlo, se abrirá de nuevo."
+      ],
+      "choices": [
+        {
+          "text": "Completar el cierre con el cilindro",
+          "to": "procedimiento_740",
+          "time": 1,
+          "requiresClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
+        },
+        {
+          "text": "Destruir la válvula central",
+          "to": "final_valvula",
+          "time": 1,
+          "requiresClue": "La válvula central puede destruir la resonancia en el momento de máxima potencia"
+        },
+        {
+          "text": "Luchar con Marsh mientras Ward destruye la máquina",
+          "skill": {
+            "name": "Pelea",
+            "success": "final_pelea",
+            "fail": "final_malo"
+          },
+          "time": 1
+        }
+      ]
+    },
+    "sabotaje_fallo": {
+      "kicker": "SÓTANO",
+      "title": "El cable equivocado",
+      "text": [
+        "Cortas un cable. La aguja cae durante medio segundo y vuelve a subir con violencia.",
+        "Una descarga te lanza contra la pared.",
+        "Marsh ríe: «Casi»."
+      ],
+      "choices": [
+        {
+          "text": "Intentar el cierre completo",
+          "to": "procedimiento_740",
+          "time": 1,
+          "requiresClue": "El cierre completo exige 740, el faro y las dos mitades del cilindro"
+        },
+        {
+          "text": "Accionar las cargas",
+          "to": "final_cargas",
+          "time": 1,
+          "requiresItem": "Detonador de Ward"
+        },
+        {
+          "text": "Lanzarte sobre Marsh",
+          "skill": {
+            "name": "Pelea",
+            "success": "final_pelea",
+            "fail": "final_malo"
+          },
+          "time": 1
+        }
+      ],
+      "onEnter": {
+        "health": -2
+      }
+    },
+    "procedimiento_740": {
+      "kicker": "SÓTANO",
+      "title": "Primer paso: 740",
+      "text": [
+        "El selector ya está en 740. Mantienes la fase estable mientras Ward forcejea con las correas.",
+        "La abertura deja de crecer, pero sigue ahí.",
+        "Necesitas debilitar la resonancia."
+      ],
+      "choices": [
+        {
+          "text": "Activar el faro reparado",
+          "to": "procedimiento_faro",
+          "time": 1,
+          "requiresFlag": "faroPreparado"
+        },
+        {
+          "text": "Sin el faro, destruir la antena con las cargas",
+          "to": "final_cargas",
+          "time": 1,
+          "requiresItem": "Detonador de Ward"
+        },
+        {
+          "text": "Sin el faro, arrancar la válvula central",
+          "to": "final_valvula",
+          "time": 1,
+          "requiresClue": "La válvula central puede destruir la resonancia en el momento de máxima potencia"
+        }
+      ]
+    },
+    "procedimiento_faro": {
+      "kicker": "SÓTANO",
+      "title": "Segundo paso: la luz",
+      "text": [
+        "Accionas el relé que reparaste. A lo lejos, el haz del faro deja de girar y se fija sobre la casa.",
+        "La antena comienza a vibrar. Marsh grita.",
+        "La abertura se contrae hasta parecer una herida negra en la pared."
+      ],
+      "choices": [
+        {
+          "text": "Unir la mitad de Ward con la pieza del transmisor",
+          "to": "final_cierre",
+          "time": 1,
+          "requiresItem": "Mitad del cilindro de cierre"
+        },
+        {
+          "text": "Ayudar primero a Ward",
+          "to": "ward_cilindro",
+          "time": 1
+        }
+      ]
+    },
+    "ward_cilindro": {
+      "kicker": "SÓTANO",
+      "title": "La pieza en la mano de Ward",
+      "text": [
+        "Rompes la última correa. Ward cae de rodillas y te pone el cilindro en la mano.",
+        "«No mires cuando lo cierres»."
+      ],
+      "choices": [
+        {
+          "text": "Completar el cierre",
+          "to": "final_cierre",
+          "time": 1
+        }
+      ],
+      "onEnter": {
+        "addItem": "Mitad del cilindro de cierre"
+      }
+    },
+    "final_cierre": {
+      "kicker": "FINAL",
+      "title": "La señal se apaga",
+      "text": [
+        "Encajas las dos mitades del cilindro.",
+        "No hay clic ni resistencia: las piezas simplemente dejan de ser dos objetos.",
+        "La abertura se pliega hacia dentro. Durante un instante sientes que toda la casa cae en una dirección que no existe.",
+        "Cierras los ojos.",
+        "Cuando vuelves a abrirlos, el transmisor está apagado. Marsh ha desaparecido. Ward respira a tu lado.",
+        "Al amanecer, la cala negra está vacía de huellas por primera vez en cuarenta años."
       ],
       "choices": [
         {
@@ -1665,17 +2862,17 @@
           "completed",
           true
         ],
-        "addClue": "FINAL: El faro cerró la llamada"
+        "addClue": "FINAL: Cerraste la abertura siguiendo el procedimiento de 1907"
       }
     },
-    "final_antena": {
+    "final_valvula": {
       "kicker": "FINAL",
-      "title": "Bajo un cielo vacío",
+      "title": "Una victoria incompleta",
       "text": [
-        "Corre al exterior mientras la casa tiembla. La válvula central arde de frío al tocarla.",
-        "La arranca justo cuando la antena alcanza un tono insoportable.",
-        "Los aros de cobre se desploman hacia dentro de una forma geométricamente imposible. Desde el sótano llega un grito humano y después otro que no lo es.",
-        "Ward aparece minutos después. Marsh no."
+        "Arrancas la válvula central cuando la aguja alcanza el rojo.",
+        "La antena colapsa con un sonido que notas en los dientes. La abertura se cierra de golpe.",
+        "Ward sobrevive. Marsh no está en la habitación cuando el polvo se asienta.",
+        "Has detenido la señal, pero no sabes si has cerrado la puerta o solo la has dejado sin corriente."
       ],
       "choices": [
         {
@@ -1689,133 +2886,17 @@
           true
         ],
         "sanity": -2,
-        "addClue": "FINAL: La antena fue desconectada en el momento crítico"
-      }
-    },
-    "final_radio": {
-      "kicker": "FINAL",
-      "title": "La frecuencia muerta",
-      "text": [
-        "Reconoce el circuito de Ward y corta el retorno de resonancia.",
-        "El transmisor se apaga. Todas las bombillas de la casa explotan a la vez.",
-        "Cuando recupera la visión, Marsh ha desaparecido. Ward insiste en que durante unos segundos hubo una segunda puerta en la pared norte.",
-        "Usted recuerda haber visto algo detrás de ella."
-      ],
-      "choices": [
-        {
-          "text": "Cerrar el expediente",
-          "action": "home"
-        }
-      ],
-      "onEnter": {
-        "setFlag": [
-          "completed",
-          true
-        ],
-        "sanity": -3,
-        "addClue": "FINAL: El transmisor fue saboteado"
-      }
-    },
-    "final_radio_fallo": {
-      "kicker": "SÓTANO",
-      "title": "El circuito equivocado",
-      "text": [
-        "Corta un cable. La aguja cae… y vuelve a subir de golpe.",
-        "Marsh ríe. «Casi».",
-        "La descarga le arroja contra la pared, pero aún puede actuar una última vez."
-      ],
-      "choices": [
-        {
-          "text": "Lanzarse sobre Marsh",
-          "skill": {
-            "name": "Pelea",
-            "success": "final_pelea",
-            "fail": "final_malo"
-          },
-          "time": 1
-        },
-        {
-          "text": "Usar el detonador",
-          "to": "final_cargas",
-          "time": 1,
-          "requiresItem": "Detonador improvisado"
-        },
-        {
-          "text": "Arrancar la válvula de la antena",
-          "to": "final_antena",
-          "time": 2,
-          "requiresClue": "La válvula debe retirarse cuando el transmisor alcance máxima potencia"
-        }
-      ],
-      "onEnter": {
-        "health": -2
-      }
-    },
-    "final_pelea": {
-      "kicker": "FINAL",
-      "title": "Silencio sobre Kingsport",
-      "text": [
-        "Marsh no espera un ataque físico. Ambos chocan contra el transmisor.",
-        "Ward consigue liberar una mano y arranca un cable grueso. La máquina muere con un gemido metálico.",
-        "Marsh retrocede hacia la puerta de piedra. Por un instante su rostro parece mucho más viejo de lo que debería. Después la oscuridad lo engulle.",
-        "Al amanecer nadie creerá su historia. Ward sí. Y eso quizá sea peor."
-      ],
-      "choices": [
-        {
-          "text": "Cerrar el expediente",
-          "action": "home"
-        }
-      ],
-      "onEnter": {
-        "setFlag": [
-          "completed",
-          true
-        ],
-        "addClue": "FINAL: Marsh fue derrotado junto al transmisor"
-      }
-    },
-    "final_pelea_fallo": {
-      "kicker": "SÓTANO",
-      "title": "Más fuerte de lo que parece",
-      "text": [
-        "Marsh le aparta con una fuerza absurda. Golpea contra una mesa y pierde el aire.",
-        "Ward grita: «¡Ahora!». La aguja está completamente en rojo."
-      ],
-      "choices": [
-        {
-          "text": "Usar el detonador",
-          "to": "final_cargas",
-          "time": 1,
-          "requiresItem": "Detonador improvisado"
-        },
-        {
-          "text": "Arrancar la válvula de la antena",
-          "to": "final_antena",
-          "time": 2,
-          "requiresClue": "La válvula debe retirarse cuando el transmisor alcance máxima potencia"
-        },
-        {
-          "text": "Intentar sabotear el transmisor",
-          "skill": {
-            "name": "Electricidad",
-            "success": "final_radio",
-            "fail": "final_malo"
-          },
-          "time": 1
-        }
-      ],
-      "onEnter": {
-        "health": -2
+        "addClue": "FINAL: Destruiste la resonancia arrancando la válvula central"
       }
     },
     "final_cargas": {
       "kicker": "FINAL",
       "title": "El último recurso de Ward",
       "text": [
-        "Aprieta el detonador.",
-        "Durante medio segundo no ocurre nada. Después el techo se ilumina y el suelo salta bajo sus pies.",
-        "Los soportes de la antena revientan. La casa empieza a derrumbarse mientras Ward consigue ponerse en pie.",
-        "Escapan por la cocina segundos antes de que el ala norte desaparezca en el acantilado."
+        "Aprietas el detonador.",
+        "Las cargas revientan los soportes de la antena. La casa se inclina hacia el acantilado mientras el transmisor pierde potencia.",
+        "Consigues sacar a Ward por una ventana antes de que media estructura caiga hacia la cala.",
+        "La señal se detiene. Bajo los escombros, sin embargo, algo sigue emitiendo tres golpes cortos y uno largo."
       ],
       "choices": [
         {
@@ -1829,19 +2910,18 @@
           true
         ],
         "health": -1,
-        "sanity": -2,
-        "addClue": "FINAL: La casa y la antena fueron destruidas"
+        "sanity": -3,
+        "addClue": "FINAL: Destruiste la casa y la antena, pero algo continúa bajo los escombros"
       }
     },
-    "final_curiosidad": {
+    "final_pelea": {
       "kicker": "FINAL",
-      "title": "Lo imposible existe",
+      "title": "Silencio sobre Kingsport",
       "text": [
-        "Marsh sonríe y se aparta para dejarle ver.",
-        "Durante un segundo contempla algo que su mente intenta convertir en océano, cielo y arquitectura al mismo tiempo.",
-        "Entonces comprende que la señal nunca vino de muy lejos. La distancia no significa nada para aquello que responde.",
-        "Ward logra cortar la corriente mientras Marsh le observa a usted, fascinado. La abertura se cierra.",
-        "Sobrevive. Y ha conseguido la prueba que buscaba. El problema es que ya no puede olvidar lo que demuestra."
+        "Mantienes a Marsh lejos del panel mientras Ward arranca cables del transmisor.",
+        "La abertura se contrae. Marsh retrocede hacia ella y, durante un segundo, su rostro envejece cuarenta años.",
+        "Después desaparece en la oscuridad.",
+        "Ward destruye el último circuito. La señal se apaga, aunque el cilindro nunca llegó a cerrarla de forma completa."
       ],
       "choices": [
         {
@@ -1854,18 +2934,20 @@
           "completed",
           true
         ],
-        "sanity": -8,
-        "addClue": "FINAL: Miró al otro lado y sobrevivió"
+        "sanity": -2,
+        "addClue": "FINAL: Ward destruyó el transmisor mientras contenías a Marsh"
       }
     },
-    "final_malo": {
+    "final_ver": {
       "kicker": "FINAL",
-      "title": "La respuesta",
+      "title": "La costa verdadera",
       "text": [
-        "No llega a tiempo. El transmisor emite un pulso que no escucha con los oídos sino con los huesos.",
-        "Marsh empieza a reír. Ward cierra los ojos.",
-        "Fuera, sobre el océano, algo responde.",
-        "El expediente termina aquí. A la mañana siguiente, el Hotel North Star registra dos nuevas llegadas con el apellido Marsh."
+        "Decides mirar.",
+        "La pared deja de ser una pared. Ves una costa bajo un cielo que no posee horizonte. Hay edificios demasiado altos y figuras caminando por playas que se curvan hacia arriba.",
+        "Una de esas figuras se vuelve.",
+        "Comprendes entonces que la señal nunca viajó una gran distancia. La distancia no significa nada para el lugar que estás viendo.",
+        "Ward consigue cortar la corriente. Sobrevives.",
+        "Y ya nunca podrás demostrar que lo imposible existe sin recordar que también te vio a ti."
       ],
       "choices": [
         {
@@ -1879,37 +2961,33 @@
           true
         ],
         "sanity": -10,
-        "addClue": "FINAL: La llamada fue respondida"
+        "addClue": "FINAL: Miraste al otro lado y sobreviviste"
       }
     },
-    "faro_fallo": {
-      "kicker": "FARO DE KINGSPORT",
-      "title": "Una historia que Owen no quiere contar",
+    "final_malo": {
+      "kicker": "FINAL",
+      "title": "La respuesta",
       "text": [
-        "Owen se cierra en banda. Dice que su abuelo fue objeto de burlas durante años y que no piensa alimentar otra historia sobre luces y monstruos.",
-        "Cuando se da la vuelta, sin embargo, deja escapar una frase: «Ward también creyó que la respuesta estaba en la luz». Es poco, pero basta para saber que el faro importa."
+        "No llegas a tiempo.",
+        "El transmisor emite un pulso que no escuchas con los oídos sino con los huesos.",
+        "La pared desaparece.",
+        "Marsh sonríe. Ward cierra los ojos.",
+        "Fuera, todas las campanas de Kingsport dan cinco golpes a la vez.",
+        "A la mañana siguiente, el Hotel North Star registra dos nuevas llegadas con el apellido Marsh."
       ],
       "choices": [
         {
-          "text": "Examinar discretamente el edificio",
-          "skill": {
-            "name": "Descubrir",
-            "success": "faro_descubrir",
-            "fail": "faro_descubrir_fallo"
-          },
-          "time": 4
-        },
-        {
-          "text": "Marcharse a la casa del acantilado",
-          "to": "casa",
-          "time": 25
+          "text": "Cerrar el expediente",
+          "action": "home"
         }
       ],
       "onEnter": {
         "setFlag": [
-          "owenDesconfia",
+          "completed",
           true
-        ]
+        ],
+        "sanity": -12,
+        "addClue": "FINAL: La llamada fue respondida"
       }
     }
   },
