@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16130f">
+  <title>Archivos del Investigador</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="home" class="screen active">
+      <header class="hero">
+        <p class="eyebrow">ARCHIVOS DEL INVESTIGADOR</p>
+        <h1>Expedientes que nunca debieron abrirse</h1>
+        <p class="lead">Aventuras narrativas offline con decisiones, inventario, tiradas y consecuencias.</p>
+      </header>
+
+      <article class="case-card">
+        <div>
+          <span class="case-number">EXPEDIENTE 01</span>
+          <h2>La señal de Kingsport</h2>
+          <p>Massachusetts, octubre de 1927.</p>
+          <p class="muted">Una emisión de radio imposible. Un profesor desaparecido. Una casa junto al acantilado.</p>
+        </div>
+        <button id="newGameBtn" class="primary">Nueva partida</button>
+        <button id="continueBtn" class="secondary hidden">Continuar</button>
+      </article>
+    </section>
+
+    <section id="creator" class="screen">
+      <article class="creator-card">
+        <p class="eyebrow">ANTES DE ABRIR EL EXPEDIENTE</p>
+        <h2>Crea tu investigador</h2>
+
+        <label class="field-label" for="charName">Nombre</label>
+        <div class="name-row">
+          <input id="charName" maxlength="36" placeholder="Ej. Arthur Bennett">
+          <button id="randomNameBtn" class="small-btn">Al azar</button>
+        </div>
+
+        <h3>Profesión</h3>
+        <div id="professionList" class="select-grid"></div>
+
+        <h3>Elige dos talentos</h3>
+        <p class="muted dark">Máximo dos. Definirán tus mejores oportunidades durante la investigación.</p>
+        <div id="talentList" class="select-grid compact"></div>
+
+        <h3>¿Qué te impulsa?</h3>
+        <div id="motivationList" class="select-grid compact"></div>
+
+        <div id="creatorSummary" class="creator-summary"></div>
+        <button id="startAdventureBtn" class="primary" disabled>Abrir expediente</button>
+        <button id="cancelCreatorBtn" class="secondary">Cancelar</button>
+      </article>
+    </section>
+
+    <section id="game" class="screen">
+      <header class="topbar">
+        <button id="homeBtn" class="icon-btn" aria-label="Volver">←</button>
+        <div>
+          <small id="locationLabel">—</small>
+          <strong id="timeLabel">—</strong>
+        </div>
+        <button id="journalBtn" class="icon-btn" aria-label="Diario">☰</button>
+      </header>
+
+      <section class="status">
+        <div><span>CORDURA</span><strong id="sanityLabel">60</strong></div>
+        <div><span>SALUD</span><strong id="healthLabel">10</strong></div>
+        <div><span>PISTAS</span><strong id="cluesLabel">0</strong></div>
+      </section>
+
+      <article id="sceneCard" class="scene-card">
+        <p id="sceneKicker" class="eyebrow"></p>
+        <h2 id="sceneTitle"></h2>
+        <div id="sceneText" class="scene-text"></div>
+        <div id="rollResult" class="roll-result hidden"></div>
+        <div id="choices" class="choices"></div>
+      </article>
+    </section>
+
+    <dialog id="journalDialog">
+      <div class="dialog-head">
+        <h2>Diario del investigador</h2>
+        <button id="closeJournalBtn" class="icon-btn">×</button>
+      </div>
+      <h3>Investigador</h3>
+      <div id="characterSheet" class="character-sheet"></div>
+      <h3>Inventario</h3>
+      <ul id="inventoryList"></ul>
+      <h3>Pistas</h3>
+      <ul id="clueList"></ul>
+      <h3>Registro</h3>
+      <ul id="logList"></ul>
+      <button id="resetBtn" class="danger">Borrar partida</button>
+    </dialog>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
