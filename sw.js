@@ -1,4 +1,4 @@
-const CACHE='investigador-v4';
+const CACHE='investigador-v5';
 const FILES=['./','./index.html','./style.css','./app.js','./manifest.webmanifest','./adventures/la-senal/story.json'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));

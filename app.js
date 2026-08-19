@@ -1,4 +1,4 @@
-const SAVE_KEY='investigador-save-v4';
+const SAVE_KEY='investigador-save-v5';
 let story=null;
 let state=null;
 let creator={profession:null,talents:[],motivation:null};
@@ -138,12 +138,31 @@ function enterScene(id, addTime=0){
   save();
   render();
 }
+function showStatNotice(label,delta,reason=''){
+  let box=document.getElementById('effectToast');
+  if(!box){
+    box=document.createElement('div');
+    box.id='effectToast';
+    document.body.appendChild(box);
+  }
+  const sign=delta>0?'+':'';
+  box.innerHTML=`<strong>${label} ${sign}${delta}</strong>${reason?`<span>${reason}</span>`:''}`;
+  box.className='effect-toast show '+(delta<0?'loss':'gain');
+  clearTimeout(window.__effectToastTimer);
+  window.__effectToastTimer=setTimeout(()=>box.classList.remove('show'),2200);
+}
 function applyEffects(effects){
   if(!effects)return;
   if(effects.addClue && !state.clues.includes(effects.addClue)) state.clues.push(effects.addClue);
   if(effects.addItem && !state.inventory.includes(effects.addItem)) state.inventory.push(effects.addItem);
-  if(effects.sanity) state.sanity=Math.max(0,state.sanity+effects.sanity);
-  if(effects.health) state.health=Math.max(0,state.health+effects.health);
+  if(effects.sanity){
+    state.sanity=Math.max(0,state.sanity+effects.sanity);
+    setTimeout(()=>showStatNotice('CORDURA',effects.sanity,effects.sanity<0?'Algo de lo ocurrido te afecta.':''),120);
+  }
+  if(effects.health){
+    state.health=Math.max(0,state.health+effects.health);
+    setTimeout(()=>showStatNotice('SALUD',effects.health,effects.health<0?'Has sufrido daño.':''),120);
+  }
   if(effects.setFlag) state.flags[effects.setFlag[0]]=effects.setFlag[1];
 }
 function hasRequirement(choice){
@@ -152,6 +171,8 @@ function hasRequirement(choice){
   if(choice.requiresProfession && state.character?.profession!==choice.requiresProfession) return false;
   if(choice.requiresMotivation && state.character?.motivation!==choice.requiresMotivation) return false;
   if(choice.requiresFlag && !state.flags?.[choice.requiresFlag]) return false;
+  if(choice.requiresMinClues && state.clues.length<choice.requiresMinClues) return false;
+  if(choice.requiresAnyClue && !choice.requiresAnyClue.some(c=>state.clues.includes(c))) return false;
   return true;
 }
 function rollSkill(skill){
@@ -160,7 +181,7 @@ function rollSkill(skill){
   const success=roll<=chance;
   $('#rollResult').innerHTML=`<strong>${success?'ÉXITO':'FALLO'}</strong><br>${skill.name}: ${roll} / ${chance}`;
   $('#rollResult').classList.remove('hidden');
-  setTimeout(()=>enterScene(success?skill.success:skill.fail,0),1800);
+  setTimeout(()=>enterScene(success?skill.success:skill.fail,0),2600);
 }
 
 function render(){

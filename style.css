@@ -98,3 +98,17 @@ dialog li{margin:.45em 0;line-height:1.4}
 }
 
 .roll-result{text-align:center;font-size:1rem;line-height:1.45}.roll-result strong{font-size:1.35rem;letter-spacing:.08em}
+
+#effectToast.effect-toast{
+  position:fixed;left:50%;top:18%;transform:translate(-50%,-12px);
+  z-index:9999;min-width:210px;max-width:calc(100% - 36px);
+  padding:14px 18px;border-radius:4px;text-align:center;
+  background:#efe4c8;color:#211b14;border:2px solid #6d604d;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+  opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;
+}
+#effectToast.effect-toast.show{opacity:1;transform:translate(-50%,0)}
+#effectToast.effect-toast strong{display:block;font-size:1.3rem;letter-spacing:.08em}
+#effectToast.effect-toast span{display:block;margin-top:4px;font-size:.88rem}
+#effectToast.effect-toast.loss{border-color:#7d2f2a}
+#effectToast.effect-toast.gain{border-color:#426342}
