@@ -1,1 +1,634 @@
-
+{
+  "meta": {
+    "id": "la-senal-kingsport",
+    "title": "La señal de Kingsport",
+    "subtitle": "Massachusetts, octubre de 1927",
+    "version": 1
+  },
+  "initialState": {
+    "scene": "hotel",
+    "sanity": 60,
+    "health": 10,
+    "timeMinutes": 1240,
+    "inventory": [
+      "Carta del profesor Ward",
+      "Linterna"
+    ],
+    "clues": [],
+    "flags": {},
+    "log": [
+      "Llegada a Kingsport."
+    ],
+    "character": null
+  },
+  "scenes": {
+    "hotel": {
+      "kicker": "HOTEL NORTH STAR · 20:40",
+      "title": "Una habitación vacía",
+      "text": [
+        "El profesor Elias Ward debía esperarle en el vestíbulo. Su sillón está vacío y sobre la mesa queda una taza de café completamente fría.",
+        "El recepcionista evita mirarle. Desde el piso superior llega, durante apenas un segundo, un zumbido grave semejante al de una radio mal sintonizada."
+      ],
+      "choices": [
+        {
+          "text": "Preguntar al recepcionista por Ward",
+          "to": "recepcion",
+          "time": 5
+        },
+        {
+          "text": "Subir a la habitación 12, la de Ward",
+          "to": "habitacion12",
+          "time": 5
+        },
+        {
+          "text": "Examinar la mesa del profesor",
+          "to": "mesa",
+          "time": 3
+        }
+      ]
+    },
+    "mesa": {
+      "kicker": "VESTÍBULO",
+      "title": "Ceniza y números",
+      "text": [
+        "Bajo el cenicero encuentra un papel doblado. Hay tres frecuencias escritas a lápiz y una frase incompleta: «No procede del mar. Procede de…»"
+      ],
+      "onEnter": {
+        "addClue": "Frecuencias 740, 910 y 1210 kHz"
+      },
+      "choices": [
+        {
+          "text": "Guardar el papel y subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 4
+        },
+        {
+          "text": "Interrogar al recepcionista",
+          "to": "recepcion",
+          "time": 2
+        }
+      ]
+    },
+    "recepcion": {
+      "kicker": "RECEPCIÓN",
+      "title": "El hombre de los tirantes",
+      "text": [
+        "El recepcionista se seca las manos en el chaleco aunque no están mojadas. Dice que Ward salió antes del anochecer.",
+        "Cuando menciona la radio, sus ojos se desvían instintivamente hacia el libro de huéspedes."
+      ],
+      "choices": [
+        {
+          "text": "Presionarle para que enseñe el libro de huéspedes",
+          "skill": {
+            "name": "Persuasión",
+            "success": "libro",
+            "fail": "recepcion_fallo"
+          },
+          "time": 5
+        },
+        {
+          "text": "No insistir y subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ]
+    },
+    "recepcion_fallo": {
+      "kicker": "RECEPCIÓN",
+      "title": "Una sonrisa cerrada",
+      "text": [
+        "El hombre se endurece. «Los asuntos de nuestros huéspedes son privados». Ha decidido que no le gusta usted."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "recepcionistaHostil",
+          true
+        ]
+      },
+      "choices": [
+        {
+          "text": "Subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        }
+      ]
+    },
+    "libro": {
+      "kicker": "LIBRO DE HUÉSPEDES",
+      "title": "Un nombre repetido",
+      "text": [
+        "Ward figura en la habitación 12. Debajo aparece un tal Silas Marsh, sin dirección, habitación 9. El mismo apellido se repite seis veces durante los últimos dos meses."
+      ],
+      "onEnter": {
+        "addClue": "Silas Marsh, habitación 9"
+      },
+      "choices": [
+        {
+          "text": "Subir a la habitación 12",
+          "to": "habitacion12",
+          "time": 3
+        },
+        {
+          "text": "Intentar entrar en la habitación 9",
+          "to": "habitacion9",
+          "time": 4
+        }
+      ]
+    },
+    "habitacion12": {
+      "kicker": "SEGUNDO PISO",
+      "title": "La habitación del profesor",
+      "text": [
+        "La puerta no está cerrada. La cama sigue hecha. Sobre el escritorio hay un receptor de radio desmontado y un mapa costero con un círculo rojo en el extremo norte de Kingsport.",
+        "Una mancha oscura cruza el suelo hasta la ventana. No parece sangre."
+      ],
+      "choices": [
+        {
+          "text": "Examinar el receptor",
+          "to": "radio",
+          "time": 7
+        },
+        {
+          "text": "Examinar el mapa",
+          "to": "mapa",
+          "time": 4
+        },
+        {
+          "text": "Seguir la mancha hasta la ventana",
+          "to": "ventana",
+          "time": 3
+        }
+      ]
+    },
+    "radio": {
+      "kicker": "HABITACIÓN 12",
+      "title": "El receptor modificado",
+      "text": [
+        "Ward había sustituido varias válvulas y añadido una bobina artesanal. En la carcasa interior hay grabado el número 1210."
+      ],
+      "onEnter": {
+        "addClue": "Ward modificó la radio para recibir 1210 kHz"
+      },
+      "choices": [
+        {
+          "text": "Encender el receptor",
+          "skill": {
+            "name": "Electricidad",
+            "success": "emision",
+            "fail": "radio_fallo"
+          },
+          "time": 8
+        },
+        {
+          "text": "Examinar el mapa",
+          "to": "mapa",
+          "time": 3
+        }
+      ]
+    },
+    "radio_fallo": {
+      "kicker": "HABITACIÓN 12",
+      "title": "Chispas",
+      "text": [
+        "Una válvula estalla con un fogonazo. El aparato queda muerto, pero durante una fracción de segundo escucha una voz pronunciar su apellido."
+      ],
+      "onEnter": {
+        "sanity": -2
+      },
+      "choices": [
+        {
+          "text": "Apartarse del aparato y examinar el mapa",
+          "to": "mapa",
+          "time": 3
+        }
+      ]
+    },
+    "emision": {
+      "kicker": "1210 kHz",
+      "title": "La voz bajo el ruido",
+      "text": [
+        "Primero solo hay estática. Después surge una secuencia de golpes, tres cortos y uno largo. Finalmente oye la voz de Ward: «La casa del acantilado. No miréis hacia abajo».",
+        "La grabación se repite exactamente igual."
+      ],
+      "onEnter": {
+        "addClue": "Ward dejó un mensaje: «La casa del acantilado»",
+        "sanity": -1
+      },
+      "choices": [
+        {
+          "text": "Examinar el mapa",
+          "to": "mapa",
+          "time": 3
+        }
+      ]
+    },
+    "mapa": {
+      "kicker": "MAPA COSTERO",
+      "title": "El cabo norte",
+      "text": [
+        "El círculo rojo rodea una vieja finca junto al acantilado, fuera del casco urbano. Ward ha escrito: «Antena visible desde el faro»."
+      ],
+      "onEnter": {
+        "addClue": "Casa del acantilado marcada en el mapa"
+      },
+      "choices": [
+        {
+          "text": "Ir a la casa del acantilado",
+          "to": "casa",
+          "time": 35
+        },
+        {
+          "text": "Antes, investigar la habitación 9",
+          "to": "habitacion9",
+          "time": 5,
+          "requiresClue": "Silas Marsh, habitación 9"
+        }
+      ]
+    },
+    "ventana": {
+      "kicker": "HABITACIÓN 12",
+      "title": "Más allá del cristal",
+      "text": [
+        "La sustancia oscura termina en el alféizar. Afuera, en la cornisa, distingue una marca húmeda con cinco dedos demasiado largos."
+      ],
+      "onEnter": {
+        "addClue": "Huella anómala en la cornisa",
+        "sanity": -2
+      },
+      "choices": [
+        {
+          "text": "Volver al escritorio",
+          "to": "habitacion12",
+          "time": 2
+        }
+      ]
+    },
+    "habitacion9": {
+      "kicker": "HABITACIÓN 9",
+      "title": "Silas Marsh",
+      "text": [
+        "Nadie responde. La puerta está cerrada. Por debajo llega olor a sal y algo más: pescado dejado demasiados días al sol."
+      ],
+      "choices": [
+        {
+          "text": "Forzar discretamente la cerradura",
+          "skill": {
+            "name": "Cerrajería",
+            "success": "habitacion9_dentro",
+            "fail": "habitacion9_fallo"
+          },
+          "time": 7
+        },
+        {
+          "text": "Dejarlo y dirigirse a la casa del acantilado",
+          "to": "casa",
+          "time": 35
+        }
+      ]
+    },
+    "habitacion9_fallo": {
+      "kicker": "PASILLO",
+      "title": "Pasos en la escalera",
+      "text": [
+        "La ganzúa improvisada se parte. Al fondo oye subir al recepcionista. Será mejor marcharse."
+      ],
+      "choices": [
+        {
+          "text": "Ir a la casa del acantilado",
+          "to": "casa",
+          "time": 35
+        }
+      ]
+    },
+    "habitacion9_dentro": {
+      "kicker": "HABITACIÓN 9",
+      "title": "La maleta de Marsh",
+      "text": [
+        "La habitación está casi vacía. Dentro de una maleta hay ropa húmeda, un cuchillo de pescador y una fotografía de Ward junto a la casa del acantilado. A su espalda aparece una figura alta que Ward no parece haber visto."
+      ],
+      "onEnter": {
+        "addClue": "Fotografía de Ward ante la casa del acantilado",
+        "addItem": "Cuchillo de pescador",
+        "sanity": -1
+      },
+      "choices": [
+        {
+          "text": "Ir inmediatamente a la casa",
+          "to": "casa",
+          "time": 35
+        }
+      ]
+    },
+    "casa": {
+      "kicker": "ACANTILADO NORTE",
+      "title": "La casa que escucha",
+      "text": [
+        "La finca se alza contra un cielo sin estrellas. Del tejado surge una antena imposible, formada por círculos concéntricos de cobre.",
+        "La puerta principal está abierta. Desde el sótano llega el mismo zumbido que escuchó en el hotel."
+      ],
+      "choices": [
+        {
+          "text": "Entrar y bajar al sótano",
+          "to": "sotano",
+          "time": 6
+        },
+        {
+          "text": "Examinar primero la antena desde el exterior",
+          "to": "antena",
+          "time": 5
+        }
+      ]
+    },
+    "antena": {
+      "kicker": "EXTERIOR",
+      "title": "Geometría incorrecta",
+      "text": [
+        "Los aros parecen cruzarse entre sí aunque sabe que eso es geométricamente imposible. En el centro hay una placa con una ranura del tamaño de una válvula de radio."
+      ],
+      "onEnter": {
+        "addClue": "La antena puede desconectarse retirando su válvula",
+        "sanity": -2
+      },
+      "choices": [
+        {
+          "text": "Entrar en la casa",
+          "to": "sotano",
+          "time": 4
+        }
+      ]
+    },
+    "sotano": {
+      "kicker": "SÓTANO",
+      "title": "Elias Ward",
+      "text": [
+        "Ward está vivo, atado a una silla frente a un transmisor enorme. Silas Marsh ajusta los controles. Al verle sonríe.",
+        "«Llegas justo a tiempo. Esta noche responderán». El zumbido aumenta y las paredes parecen alejarse."
+      ],
+      "choices": [
+        {
+          "text": "Lanzarse sobre Marsh",
+          "skill": {
+            "name": "Pelea",
+            "success": "final_pelea",
+            "fail": "final_malo"
+          },
+          "time": 2
+        },
+        {
+          "text": "Correr al exterior y sabotear la antena",
+          "to": "final_antena",
+          "time": 3,
+          "requiresClue": "La antena puede desconectarse retirando su válvula"
+        },
+        {
+          "text": "Intentar apagar el transmisor",
+          "skill": {
+            "name": "Electricidad",
+            "success": "final_radio",
+            "fail": "final_malo"
+          },
+          "time": 2,
+          "requiresClue": "Ward modificó la radio para recibir 1210 kHz"
+        }
+      ]
+    },
+    "final_pelea": {
+      "kicker": "FINAL",
+      "title": "Silencio sobre Kingsport",
+      "text": [
+        "Marsh cae contra el transmisor. Ward logra arrancar un cable y la máquina muere con un gemido metálico. En algún lugar más allá del muro, algo enorme parece perder interés.",
+        "Al amanecer nadie creerá su historia. Ward sí. Y eso quizá sea peor."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "completed",
+          true
+        ]
+      },
+      "choices": [
+        {
+          "text": "Volver al archivo de expedientes",
+          "action": "home"
+        }
+      ]
+    },
+    "final_radio": {
+      "kicker": "FINAL",
+      "title": "La frecuencia muerta",
+      "text": [
+        "Reconoce el circuito de Ward y arranca la alimentación correcta. La señal colapsa. Todas las bombillas de la casa explotan a la vez.",
+        "Cuando vuelve la luz del amanecer, Marsh ha desaparecido. Ward insiste en que jamás hubo una puerta en la pared norte. Usted recuerda haber visto una abierta."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "completed",
+          true
+        ],
+        "sanity": -3
+      },
+      "choices": [
+        {
+          "text": "Cerrar el expediente",
+          "action": "home"
+        }
+      ]
+    },
+    "final_antena": {
+      "kicker": "FINAL",
+      "title": "Bajo un cielo vacío",
+      "text": [
+        "Sube al soporte y arranca la válvula del centro. Los aros de cobre se desploman de una forma que no debería ser posible.",
+        "Desde el sótano llega un grito humano y después otro que no lo es. Cuando regresa, Ward está libre y Marsh ha huido. Sobre el mar, durante un instante, las estrellas vuelven a su sitio."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "completed",
+          true
+        ],
+        "sanity": -2
+      },
+      "choices": [
+        {
+          "text": "Cerrar el expediente",
+          "action": "home"
+        }
+      ]
+    },
+    "final_malo": {
+      "kicker": "FINAL",
+      "title": "La respuesta",
+      "text": [
+        "No llega a tiempo. El transmisor emite un pulso que no escucha con los oídos sino con los huesos.",
+        "Marsh empieza a reír. Ward cierra los ojos. Fuera, sobre el océano, algo responde.",
+        "El expediente termina aquí."
+      ],
+      "onEnter": {
+        "setFlag": [
+          "completed",
+          true
+        ],
+        "sanity": -10
+      },
+      "choices": [
+        {
+          "text": "Cerrar el expediente",
+          "action": "home"
+        }
+      ]
+    }
+  },
+  "characterCreation": {
+    "professions": [
+      {
+        "id": "periodista",
+        "name": "Periodista",
+        "description": "Acostumbrado a preguntar donde otros prefieren callar.",
+        "skills": {
+          "Persuasión": 65,
+          "Psicología": 55,
+          "Biblioteca": 60,
+          "Descubrir": 50,
+          "Electricidad": 30,
+          "Cerrajería": 25,
+          "Pelea": 35,
+          "Ocultismo": 25
+        },
+        "health": 10,
+        "sanity": 60
+      },
+      {
+        "id": "medico",
+        "name": "Médico",
+        "description": "Formación científica y nervios acostumbrados a situaciones difíciles.",
+        "skills": {
+          "Persuasión": 45,
+          "Psicología": 55,
+          "Biblioteca": 55,
+          "Descubrir": 50,
+          "Electricidad": 25,
+          "Cerrajería": 20,
+          "Pelea": 30,
+          "Ocultismo": 20
+        },
+        "health": 11,
+        "sanity": 65
+      },
+      {
+        "id": "detective",
+        "name": "Detective privado",
+        "description": "Sabe observar, entrar donde no le invitan y salir de problemas.",
+        "skills": {
+          "Persuasión": 45,
+          "Psicología": 55,
+          "Biblioteca": 40,
+          "Descubrir": 65,
+          "Electricidad": 30,
+          "Cerrajería": 55,
+          "Pelea": 60,
+          "Ocultismo": 20
+        },
+        "health": 11,
+        "sanity": 55
+      },
+      {
+        "id": "profesor",
+        "name": "Profesor universitario",
+        "description": "Erudición, paciencia y demasiada curiosidad.",
+        "skills": {
+          "Persuasión": 40,
+          "Psicología": 45,
+          "Biblioteca": 75,
+          "Descubrir": 50,
+          "Electricidad": 25,
+          "Cerrajería": 20,
+          "Pelea": 25,
+          "Ocultismo": 50
+        },
+        "health": 9,
+        "sanity": 65
+      },
+      {
+        "id": "ingeniero",
+        "name": "Ingeniero",
+        "description": "Comprende máquinas, circuitos y soluciones poco elegantes.",
+        "skills": {
+          "Persuasión": 35,
+          "Psicología": 35,
+          "Biblioteca": 50,
+          "Descubrir": 50,
+          "Electricidad": 70,
+          "Cerrajería": 45,
+          "Pelea": 35,
+          "Ocultismo": 15
+        },
+        "health": 10,
+        "sanity": 60
+      }
+    ],
+    "talents": [
+      {
+        "id": "labia",
+        "name": "Buena labia",
+        "description": "+10 Persuasión",
+        "skill": "Persuasión",
+        "bonus": 10
+      },
+      {
+        "id": "manitas",
+        "name": "Manitas",
+        "description": "+10 Electricidad",
+        "skill": "Electricidad",
+        "bonus": 10
+      },
+      {
+        "id": "cerrajero",
+        "name": "Dedos hábiles",
+        "description": "+10 Cerrajería",
+        "skill": "Cerrajería",
+        "bonus": 10
+      },
+      {
+        "id": "observador",
+        "name": "Observador",
+        "description": "+10 Descubrir",
+        "skill": "Descubrir",
+        "bonus": 10
+      },
+      {
+        "id": "duro",
+        "name": "Tipo duro",
+        "description": "+5 Pelea y +1 Salud",
+        "skill": "Pelea",
+        "bonus": 5,
+        "health": 1
+      },
+      {
+        "id": "erudito",
+        "name": "Erudito",
+        "description": "+10 Biblioteca",
+        "skill": "Biblioteca",
+        "bonus": 10
+      },
+      {
+        "id": "esoterico",
+        "name": "Lector de lo prohibido",
+        "description": "+10 Ocultismo",
+        "skill": "Ocultismo",
+        "bonus": 10
+      },
+      {
+        "id": "sangrefria",
+        "name": "Sangre fría",
+        "description": "+5 Cordura inicial",
+        "sanity": 5
+      }
+    ],
+    "motivations": [
+      "La curiosidad",
+      "El deber",
+      "El dinero",
+      "Encontrar a alguien",
+      "Demostrar que lo imposible existe"
+    ]
+  }
+}
